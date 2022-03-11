@@ -19,12 +19,12 @@ li, a, button {
     transition: all 0.3s ease 0s;
 }
 .nav_links a:hover {
-    color: #0088a9
+    color: #0088a9;
 }
 
 button {
     padding: 9px 25px;
-    background-color: rgba(0,136, 169,1);
+    background-color: #0088a9;
     border: none;
     border-radius: 50px;
     cursor:pointer;
