@@ -8,6 +8,9 @@ const routes: Routes = [
     {path: '',loadChildren:()=>import('./template/user/home/home.module').then(m=>m.HomeModule)},
     {path: 'login',loadChildren:()=>import('./template/user/login/login.module').then(m=>m.LoginModule)},
     {path: 'signup',loadChildren:()=>import('./template/user/signup/signup.module').then(m=>m.SignupModule)},
+    {path: 'auction',loadChildren:()=>import('./template/user/auction/auction.module').then(m=>m.AuctionModule)},
+    {path: 'reverse-auction',loadChildren:()=>import('./template/user/reverse/reverse.module').then(m=>m.ReverseModule)},
+    {path: 'subscription',loadChildren:()=>import('./template/user/subscription/subscription.module').then(m=>m.SubscriptionModule)},
     {path: 'forgot-password',loadChildren:()=>import('./template/forgotpwd/forgotpwd.module').then(m=>m.ForgotpwdModule)}
   ]},
   {path:'admin',component:AdminLayoutComponent,children:[
