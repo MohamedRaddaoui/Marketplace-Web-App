@@ -1,13 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './template/home/home.component';
-import { LoginComponent } from './template/login/login.component';
-import { SignupComponent } from './template/signup/signup.component';
+import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { UserLayoutComponent } from './layouts/user-layout/user-layout.component';
 
 const routes: Routes = [
-  {path:'',component:HomeComponent},
-  {path:'signup',component:SignupComponent},
-  {path:'login',component:LoginComponent}
+  {path:'',component:UserLayoutComponent,children:[
+    {path: '',loadChildren:()=>import('./template/user/home/home.module').then(m=>m.HomeModule)},
+    {path: 'login',loadChildren:()=>import('./template/user/login/login.module').then(m=>m.LoginModule)},
+    {path: 'signup',loadChildren:()=>import('./template/user/signup/signup.module').then(m=>m.SignupModule)}
+  ]},
+  {path:'admin',component:AdminLayoutComponent,children:[
+    {path:'dashboard',loadChildren:()=>import('./template/admin/dashboard/dashboard.module').then(m=>m.DashboardModule)},
+    {path:'auction',loadChildren:()=>import('./template/admin/auction/auction.module').then(m=>m.AuctionModule)}
+  ]}
 ];
 
 @NgModule({
