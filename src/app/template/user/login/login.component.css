@@ -5,7 +5,7 @@ body {
   p {
     color: #b3b3b3;
     font-weight: 300; }
-  
+
   h1, h2, h3, h4, h5, h6,
   .h1, .h2, .h3, .h4, .h5, .h6 {
     font-family: "Roboto", sans-serif; }
@@ -66,6 +66,9 @@ body {
         background: #fff; }
       .content .contents .form-group.field--not-empty label, .content .bg .form-group.field--not-empty label {
         margin-top: -20px; }
+        ::placeholder {
+          font-size: 13px;
+        }
     .content .contents .form-control, .content .bg .form-control {
       border: none;
       padding: 0;

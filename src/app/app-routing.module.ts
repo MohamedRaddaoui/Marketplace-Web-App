@@ -7,7 +7,8 @@ const routes: Routes = [
   {path:'',component:UserLayoutComponent,children:[
     {path: '',loadChildren:()=>import('./template/user/home/home.module').then(m=>m.HomeModule)},
     {path: 'login',loadChildren:()=>import('./template/user/login/login.module').then(m=>m.LoginModule)},
-    {path: 'signup',loadChildren:()=>import('./template/user/signup/signup.module').then(m=>m.SignupModule)}
+    {path: 'signup',loadChildren:()=>import('./template/user/signup/signup.module').then(m=>m.SignupModule)},
+    {path: 'forgot-password',loadChildren:()=>import('./template/forgotpwd/forgotpwd.module').then(m=>m.ForgotpwdModule)}
   ]},
   {path:'admin',component:AdminLayoutComponent,children:[
     {path:'dashboard',loadChildren:()=>import('./template/admin/dashboard/dashboard.module').then(m=>m.DashboardModule)},

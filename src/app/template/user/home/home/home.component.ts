@@ -8,8 +8,7 @@ import { UserService } from 'src/app/services/user/user.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private s:UserService) {
-    this.s.showdata()
+  constructor(private Us:UserService) {
    }
 
   ngOnInit(): void {
