@@ -197,3 +197,11 @@ body {
   .control--checkbox input:disabled:checked ~ .control__indicator {
     background-color: #7e0cf5;
     opacity: .2; }
+    ::placeholder {
+      font-size: 13px;
+    }
+    .error-msg{
+      margin-bottom: 10px;
+      font-size: small;
+      color:#f45647;
+    }

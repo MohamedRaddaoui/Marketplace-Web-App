@@ -31,28 +31,37 @@
               <h3>Sign Up</h3>
               <p class="mb-4">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.</p>
             </div>
-            <form action="#" method="post">
-              <div class="form-group first">
-                <label for="name">Name</label>
-                <input type="text" class="form-control" id="name">
-
+            <form [formGroup]="signupForm" (ngSubmit)="print()">
+              <div class="form-group first" >
+                <input type="text" class="form-control" id="name" formControlName="username" placeholder="Username" required>
+              </div>
+              <div class="error-msg" *ngIf="username.touched && username.hasError('required')">
+                Username is <b>required</b>  !
               </div>
               <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" class="form-control" id="email">
-
+                <input type="email" class="form-control" id="email" formControlName="email" placeholder="Email" required>
+              </div>
+              <div class="error-msg" *ngIf="email.touched && email.hasError('required')">
+                Email is <b>required</b>  !
+              </div>
+              <div class="error-msg" *ngIf="email.touched && email.hasError('email')">
+                Not a valid <b>email</b>  !
               </div>
               <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password">
-                
+                <input type="password" class="form-control" id="password" formControlName="password" placeholder="Password" required>
+              </div>
+              <div class="error-msg" *ngIf="password.touched && password.hasError('required')">
+                Password is <b>required</b>  !
               </div>
               <div class="form-group last mb-4">
-                <label for="re-password">Re-type Password</label>
-                <input type="password" class="form-control" id="re-password">
-                
+                <input type="password" class="form-control" id="re-password" formControlName="re_password" placeholder="Re-password" required>
               </div>
-              
+              <div class="error-msg" *ngIf="re_password.touched && re_password.hasError('required')">
+                Re-type your <b>password</b>  !
+              </div>
+              <div class="error-msg" *ngIf="signupForm.hasError('notSame')">
+              <b>Passwords</b> doesn't match  !
+              </div>
               <div class="d-flex mb-5 align-items-center">
                 <label class="control control--checkbox mb-0"><span class="caption">Creating an account means you're okay with our <a href="#">Terms and Conditions</a> and our <a href="#">Privacy Policy</a>.</span>
                   <input type="checkbox" checked="checked"/>
