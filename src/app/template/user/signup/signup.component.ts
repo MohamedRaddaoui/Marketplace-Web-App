@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { UserService } from 'src/app/services/user/user.service';
 
 
 @Component({
@@ -10,31 +11,33 @@ import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/f
 export class SignupComponent implements OnInit {
 
   signupForm : any
-  constructor(fb:FormBuilder) { 
+  constructor(fb:FormBuilder, private us:UserService) { 
     this.signupForm = fb.group({
-      username: ['', Validators.required],
+      firstname: ['', Validators.required],
+      lastname: ['', Validators.required],
       email: ['', [Validators.required,Validators.email]],
       password : ['',Validators.required],
       re_password : ['',Validators.required],
-    },{ validator: this.checkPasswords })
+      date : ['',Validators.required],
+    })
    }
 
   ngOnInit(): void {
   }
   print(){
-
+    this.us.addUser(this.signupForm)
   }
-  checkPasswords(group: FormGroup) { // here we have the 'passwords' group
-    let pass = group.get('password');
-    let confirmPass = group.get('re_password');
-
-    return pass === confirmPass ? null : { notSame: true }
+  get firstname(){
+    return this.signupForm.get('firstname');
   }
-  get username(){
-    return this.signupForm.get('username');
+  set firstname(value) {
+    this.firstname = value;
   }
-  set username(value) {
-    this.username = value;
+  get lastname(){
+    return this.signupForm.get('firstname');
+  }
+  set lastname(value) {
+    this.lastname = value;
   }
   get email(){
     return this.signupForm.get('email');

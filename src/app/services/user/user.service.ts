@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Subscriber, Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -14,6 +15,9 @@ params = new HttpParams({
   constructor(private httpclient:HttpClient) { 
     
    }
+   login(f:FormGroup){
+    return this.httpclient.post(this.back_URL +`/api/Usern/`,f.value)
+   }
    isUser(name:any){
     return this.httpclient.get(this.back_URL +`/User/${name}`)
    }
@@ -23,8 +27,8 @@ params = new HttpParams({
   getUser (id:any){
     return this.httpclient.get(this.back_URL +`/User/${id}`)
   }
-  addUser (profil:any){
-    return this.httpclient.post(this.back_URL +'/addUser',profil)
+  addUser (f:FormGroup){
+    return this.httpclient.post(this.back_URL +'/addUser',f.value)
   }
   deleteUser(id:any){
     return this.httpclient.delete(this.back_URL +`/User/${id}`)

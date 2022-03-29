@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { UserService } from 'src/app/services/user/user.service';
 })
 export class LoginComponent implements OnInit {
   loginForm : any
-  constructor(private us:UserService , fb:FormBuilder) { 
+  constructor(private us:UserService ,private fb:FormBuilder,private route: Router ) { 
     this.loginForm = fb.group({
       username: ['', Validators.required],
       password : ['',Validators.required]
@@ -19,7 +20,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
   print(){
-    console.log(this.loginForm.value);
+    this.us.login(this.loginForm);
   }
   get username(){
     return this.loginForm.get('username');
