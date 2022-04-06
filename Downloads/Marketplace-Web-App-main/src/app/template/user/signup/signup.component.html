@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+
+    <title>Sign Up #8</title>
+</head>
+
+<body>
+
+
+
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 order-md-2">
+                    <img src="assets/images/signup.svg" alt="Image" class="img-fluid">
+                </div>
+                <div class="col-md-6 contents">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="mb-4">
+                                <h3>Sign Up</h3>
+                                <p class="mb-4">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.</p>
+                            </div>
+                            <form [formGroup]="signupForm" (ngSubmit)="signup()">
+                                <div class="form-group first">
+                                    <input type="text" class="form-control" id="FirstName" formControlName="FirstName" placeholder="Firstname" required>
+                                </div>
+                                <div class="error-msg" *ngIf="FirstName.touched && FirstName.hasError('required')">
+                                    Firstname is <b>required</b> !
+                                </div>
+                                <div class="form-group first">
+                                    <input type="text" class="form-control" id="LastName" formControlName="LastName" placeholder="Lastname" required>
+                                </div>
+                                <div class="error-msg" *ngIf="LastName.touched && LastName.hasError('required')">
+                                    Lastname is <b>required</b> !
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" class="form-control" id="email" formControlName="email" placeholder="Email" required>
+                                </div>
+                                <div class="error-msg" *ngIf="email.touched && email.hasError('required')">
+                                    Email is <b>required</b> !
+                                </div>
+                                <div class="error-msg" *ngIf="email.touched && email.hasError('email')">
+                                    Not a valid <b>email</b> !
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="mobile" formControlName="Number" placeholder="Mobile" required>
+                                </div>
+                                <div class="error-msg" *ngIf="Number.touched && Number.hasError('required')">
+                                    Mobile is <b>required</b> !
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="country" formControlName="Country" placeholder="Country" required>
+                                </div>
+                                <div class="error-msg" *ngIf="Country.touched && Country.hasError('required')">
+                                    Country is <b>required</b> !
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="region" formControlName="Region" placeholder="Region" required>
+                                </div>
+                                <div class="error-msg" *ngIf="Region.touched && Region.hasError('required')">
+                                    Region is <b>required</b> !
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" id="password" formControlName="plainPassword" placeholder="Password" required>
+                                </div>
+                                <div class="error-msg" *ngIf="plainPassword.touched && plainPassword.hasError('required')">
+                                    Password is <b>required</b> !
+                                </div>
+                                <div class="form-group last mb-4">
+                                    <input type="password" class="form-control" id="re-password" formControlName="re_password" placeholder="Re-password" required>
+                                </div>
+                                <div class="error-msg" *ngIf="re_password.touched && re_password.hasError('required')">
+                                    Re-type your <b>password</b> !
+                                </div>
+                                <div class="form-group last mb-4">
+                                    <input type="date" class="form-control" id="date" formControlName="birthDate" placeholder="date" required>
+                                </div>
+                                <div class="error-msg" *ngIf="birthDate.touched && birthDate.hasError('required')">
+                                    Birth Date is <b>required</b> !
+                                </div>
+                                <div class="d-flex mb-5 align-items-center">
+                                    <label class="control control--checkbox mb-0"><span class="caption">Creating an account means you're okay with our <a href="#">Terms and Conditions</a> and our <a href="#">Privacy Policy</a>.</span>
+                  <input type="checkbox" checked="checked" required/>
+                  <div class="control__indicator"></div>
+                </label>
+                                </div>
+
+                                <input type="submit" value="Register" class="btn text-white btn-block btn-primary">
+
+                                <span class="d-block text-left my-4 text-muted"> or register using</span>
+
+                                <div class="social-login">
+                                    <a href="#" class="facebook">
+                                        <span class="icon-facebook mr-3"></span>
+                                    </a>
+                                    <a href="#" class="twitter">
+                                        <span class="icon-twitter mr-3"></span>
+                                    </a>
+                                    <a href="#" class="google">
+                                        <span class="icon-google mr-3"></span>
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>

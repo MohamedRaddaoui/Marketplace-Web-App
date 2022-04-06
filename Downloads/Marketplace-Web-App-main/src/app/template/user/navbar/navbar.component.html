@@ -1,0 +1,23 @@
+<header class="">
+    <nav class="d-flex justify-content-around align-items-center px-3 py-4 bg-dark">
+        <div class="logo">
+            <h2>Logo</h2>
+        </div>
+        <div class="nav_links d-flex">
+                <a routerLink="/">Home</a>
+                <a routerLink="/auction">Auction</a>
+                <a routerLink="/reverse-auction">Reverse-Auction</a>
+                <a routerLink="/subscription">Subscription</a>
+                <a routerLink="">About</a>
+        </div>
+        <div *ngIf="this.aus.isLoggedin() == false">
+            <a routerLink="/login"><button style="background-color:transparent">Log In</button></a>
+            <a routerLink="/signup"><button>Sign Up</button></a>
+        </div>
+        <div class="infos" *ngIf="this.aus.isLoggedin() == true">
+            <span>{{username}}</span>
+            <a routerLink="/edit-profile"><img [src]="userImage" alt="profile_image"></a>
+            <i class="bi bi-box-arrow-right"></i>
+        </div>
+    </nav>
+</header>
