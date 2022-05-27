@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Product Image</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Starting description</th>
+                    <th scope="col">Quantity</th>
+                </tr>
+            </thead>
+            <h3 *ngIf="!productArray">You Have No Products!</h3>
+            <tbody *ngIf="productArray">
+                <tr *ngFor="let product of productArray; let i = index">
+                    <th scope="row">{{i}}</th>
+                    <td><img src={{product.image}} class="img-sm border rounded"></td>
+                    <td>{{product.designation}}</td>
+                    <td>{{product.description}}</td>
+                    <td>{{product.quantity}}</td>
+                    <td>
+                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editproductModal" (click)="getProductData(product)">Edit</button>
+                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteproductModal">Delete</button>
+                        <!-- Modal -->
+                <div class="modal fade" id="deleteproductModal" tabindex="-1" role="dialog" aria-labelledby="deleteproductModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h2 class="modal-title" id="#deleteproductModalLabel">Delete Product</h2>
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                            </div>
+                            <div class="container">
+                                <h2>Are you sure you want to delete this product ?</h2>
+                            </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" (click)="deleteProduct(product.id,i)">Save</button>
+                                    </div>
+                        </div>
+                    </div>
+                </div>
+                    </td>
+                </tr>
+                
+            </tbody>
+            <tfoot>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal">
+        Add Auction
+      </button>
+        </table>
+    
+        <!-- Modal -->
+        <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title" id="#productModalLabel">Add Product</h2>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+                    </div>
+                    <form [formGroup]="productForm" (ngSubmit)="add()">
+                        <div class="modal-body">
+                            <div class="form-group first">
+                                <label for="productbrand">Product name</label>
+                                <input type="text" class="form-control" name="productbname" id="name" formControlName="name" placeholder="Exemple : HP, Dell, Samsung, Huawei" required>
+                                <div class="error-msg" *ngIf="name.touched && name.hasError('required')">
+                                    Product name is <b>required</b> !
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="productbrand">Product brand</label>
+                                <input type="text" class="form-control" name="productbrand" id="brand" formControlName="brand" placeholder="Exemple : HP, Dell, Asus" required>
+                                <div class="error-msg" *ngIf="brand.touched && brand.hasError('required')">
+                                    Product brand is <b>required</b> !
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="productbrand">Product image</label><br>
+                                <img src={{img}} class="img-sm border rounded">
+                                <input type="file" class="form-control" name="productbimage" id="image" formControlName="image" required>
+    
+                                <div class="error-msg" *ngIf="image.touched && image.hasError('required')">
+                                    Product name is <b>required</b> !
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="editproductModal" tabindex="-1" role="dialog" aria-labelledby="editproductModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title" id="#editproductModalLabel">Edit Product</h2>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+                    </div>
+                    <form [formGroup]="productForm" (ngSubmit)="add()">
+                        <div class="modal-body">
+                            <div class="form-group first">
+                                <label for="productbrand">Product name</label>
+                                <input type="text" class="form-control" name="productbname" id="name" formControlName="name" placeholder="Exemple : HP, Dell, Samsung, Huawei" required>
+                                <div class="error-msg" *ngIf="name.touched && name.hasError('required')">
+                                    Product name is <b>required</b> !
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="productbrand">Product brand</label>
+                                <input type="text" class="form-control" name="productbrand" id="brand" formControlName="brand" placeholder="Exemple : HP, Dell, Asus" required>
+                                <div class="error-msg" *ngIf="brand.touched && brand.hasError('required')">
+                                    Product brand is <b>required</b> !
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="productbrand">Product image</label><br>
+                                <img src={{img}} class="img-sm border rounded">
+                                <input type="file" class="form-control" name="productbimage" id="image" (change)="onFileSelect($event)" formControlName="image" required>
+                                <div class="error-msg" *ngIf="image.touched && image.hasError('required')">
+                                    Product image is <b>required</b> !
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

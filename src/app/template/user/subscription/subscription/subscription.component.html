@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscribe</title>
+</head>
+<body>
+
+
+    <div class="container ">
+        <div class="row">
+            <div class="cards col-lg-4" *ngFor="let sub of subArray;let i = index">
+                <div class="card card-margin">
+                    <div class="card-header no-border">
+                        <h5 class="card-title">{{subTypeArray[i]}}</h5>
+                    </div>
+                    <div class="card-body pt-0">
+                        <div class="widget-49">
+                            <div class="widget-49-title-wrapper">
+                                <div class="widget-49-date-{{subTypeColor[i]}}">
+                                    <span class="widget-49-date-day">1</span>
+                                </div>
+                                <div class="widget-49-meeting-info">
+                                    <span class="widget-49-pro-title">{{subArray[i].designation}}</span>
+                                    <span class="widget-49-meeting-time">{{subArray[i].duration}} months</span>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="price">Price : <b>{{subArray[i].duration}}</b> TND</h4>
+                            </div>
+                            <div class="widget-49-title-wrapper">
+                                <div class="widget-49-meeting-info">
+                                    <span class="widget-49-pro-title">Description:</span>
+                                    <span class="widget-49-meeting-time">{{subArray[i].description}}</span>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="widget-49-meeting-action">
+                                <a class="btn btn-sm btn-flash-border-primary" (click)="purchase(subArray[i].id)">Purchase</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

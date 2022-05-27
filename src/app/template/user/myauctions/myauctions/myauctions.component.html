@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Auction Name</th>
+                    <th scope="col">Starting Price</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <h3 *ngIf="!auctionArray">You have no Auctions!</h3>
+            <tbody *ngIf="auctionArray">
+                <tr *ngFor="let auction of auctionArray; let i = index">
+                    <th scope="row">{{i}}</th>
+                    <td>{{auction.name}}</td>
+                    <td>{{auction.price}}</td>
+                    <td>{{auction.date}}</td>
+                    <td>
+                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editauctionModal" (click)="getAuctionData(auction)">Edit</button>
+                        <button class="btn btn-danger" (click)="deleteAuction(auction.id,i)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#auctionModal">
+      Add Auction
+    </button>
+            </tfoot>
+        </table>
+    </div>
+    
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Auction Name</th>
+                    <th scope="col">Starting Price</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <h3 *ngIf="!reverseAuctionArray">You have No Reverse Auctions!</h3>
+            <tbody *ngIf="reverseAuctionArray">
+                <tr *ngFor="let re_auction of reverseAuctionArray; let j = index">
+                    <th scope="row">{{j}}</th>
+                    <td>{{re_auction.name}}</td>
+                    <td>{{re_auction.price}}</td>
+                    <td>{{re_auction.date}}</td>
+                    <td>
+                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editreverseModal" (click)="getRe_AuctionData(re_auction)">Edit</button>
+                        <button class="btn btn-danger" (click)="deleteRe_Auction(re_auction.id,j)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reverseModal">
+      Add Reverse Auction
+    </button>
+            </tfoot>
+        </table>
+    </div>
+    
+    
+    
+    
+    <!-- Modal -->
+    <div class="modal fade" id="auctionModal" tabindex="-1" role="dialog" aria-labelledby="auctionModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="auctionModalLabel">Add Auction</h4>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+                </div>
+                <form [formGroup]="auctionForm" (ngSubmit)="add()">
+                    <div class="modal-body">
+                        <label for="auctionprice">Choose Auction Price</label>
+                        <div class="form-group first">
+                            <input type="text" class="form-control" name="auctionprice" id="price" formControlName="price" placeholder="Auction price" required>
+                            <div class="error-msg" *ngIf="price.touched && price.hasError('required')">
+                                Price is <b>required</b> !
+                            </div>
+                        </div>
+                        <br>
+                        <label for="startingdate">Choose Publish Date</label>
+                        <div class="form-group">
+                            <input type="date" class="form-control" name="startingdate" id="date" formControlName="auctionDate" placeholder="Auction Date" required>
+                        </div>
+                        <div class="error-msg" *ngIf="auctionDate.touched && auctionDate.hasError('required')">
+                            Starting Date is <b>required</b> !
+                        </div>
+                        <br>
+                        <label for="productname">Choose Product</label>
+                        <select class="form-select" name="productname" formControlName="productname" required>
+                <option *ngFor="let prod of productsArray" [value]="prod.id">{{prod.designation}}</option>
+              </select>
+                        <div class="error-msg" *ngIf="productname.touched && productname.hasError('required')">
+                            Product Name is <b>required</b> !
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="editauctionModal" tabindex="-1" role="dialog" aria-labelledby="editauctionModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="editauctionModalLabel">Edit Auction</h4>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+                </div>
+                <form [formGroup]="auctionForm" (ngSubmit)="add()">
+                    <div class="modal-body">
+                        <label for="auctionprice">Auction Price</label>
+                        <div class="form-group first">
+                            <input type="text" class="form-control" name="auctionprice" id="price" formControlName="price" placeholder="Auction price" required>
+                            <div class="error-msg" *ngIf="price.touched && price.hasError('required')">
+                                Price is <b>required</b> !
+                            </div>
+                        </div>
+                        <br>
+                        <label for="startingdate">Publish Date</label>
+                        <div class="form-group">
+                            <input type="date" class="form-control" name="startingdate" id="date" formControlName="auctionDate" placeholder="Auction Date" required>
+                        </div>
+                        <div class="error-msg" *ngIf="auctionDate.touched && auctionDate.hasError('required')">
+                            Starting Date is <b>required</b> !
+                        </div>
+                        <br>
+                        <label for="productname">Product</label>
+                        <select class="form-select" name="productname" formControlName="productname" required>
+                            <option *ngFor="let prod of productsArray" [value]="prod.id">{{prod.designation}}</option>
+                        </select>
+                        <div class="error-msg" *ngIf="productname.touched && productname.hasError('required')">
+                            Product Name is <b>required</b> !
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="reverseModal" tabindex="-1" role="dialog" aria-labelledby="reverseModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reverseModalLabel1">Add Reverse Auction</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+                </div>
+                <form [formGroup]="re_auctionForm" (ngSubmit)="re_add()">
+                    <div class="modal-body">
+                        <label for="auctiontitle">Choose Auction Title</label>
+                        <div class="form-group first">
+                            <input type="text" class="form-control" name="auctiontitle" id="title" formControlName="title" placeholder="Auction price" required>
+                            <div class="error-msg" *ngIf="title.touched && title.hasError('required')">
+                                Title is <b>required</b> !
+                            </div>
+                        </div>
+                        <br>
+                        <label for="startingdate">Choose Publish Date</label>
+                        <div class="form-group">
+                            <input type="date" class="form-control" name="startingdate" id="date" formControlName="re_auctionDate" placeholder="Auction Date" required>
+                        </div>
+                        <div class="error-msg" *ngIf="re_auctionDate.touched && re_auctionDate.hasError('required')">
+                            Starting Date is <b>required</b> !
+                        </div>
+                        <br>
+                        <label for="productname">Choose Product</label>
+                        <select class="form-select" name="productname" formControlName="re_productname" required>
+                  <option *ngFor="let prod of productsArray" [value]="prod.id">{{prod.designation}}</option>
+                </select>
+                        <div class="error-msg" *ngIf="re_productname.touched && re_productname.hasError('required')">
+                            Product Name is <b>required</b> !
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="editreverseModal" tabindex="-1" role="dialog" aria-labelledby="editreverseModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editreverseModalLabel1">Add Reverse Auction</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+                </div>
+                <form [formGroup]="re_auctionForm" (ngSubmit)="re_add()">
+                    <div class="modal-body">
+                        <label for="auctiontitle">Choose Auction Title</label>
+                        <div class="form-group first">
+                            <input type="text" class="form-control" name="auctiontitle" id="title" formControlName="title" placeholder="Auction price" required>
+                            <div class="error-msg" *ngIf="title.touched && title.hasError('required')">
+                                Title is <b>required</b> !
+                            </div>
+                        </div>
+                        <br>
+                        <label for="startingdate">Choose Publish Date</label>
+                        <div class="form-group">
+                            <input type="date" class="form-control" name="startingdate" id="date" formControlName="re_auctionDate" placeholder="Auction Date" required>
+                        </div>
+                        <div class="error-msg" *ngIf="re_auctionDate.touched && re_auctionDate.hasError('required')">
+                            Starting Date is <b>required</b> !
+                        </div>
+                        <br>
+                        <label for="productname">Choose Product</label>
+                        <select class="form-select" name="productname" formControlName="re_productname" required>
+                  <option *ngFor="let prod of productsArray" [value]="prod.id">{{prod.designation}}</option>
+                </select>
+                        <div class="error-msg" *ngIf="re_productname.touched && re_productname.hasError('required')">
+                            Product Name is <b>required</b> !
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

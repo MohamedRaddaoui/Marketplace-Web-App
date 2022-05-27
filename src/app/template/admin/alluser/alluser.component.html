@@ -1,0 +1,55 @@
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Users </h1>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary"></h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>FirstName</th>
+                            <th>Subscription</th>
+                            <th>email </th>
+                            <th>Country</th>
+                            <th>Number</th>
+                            <th>Action</th>
+
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>FirstName</th>
+                            <th>Subscription</th>
+                            <th>email </th>
+                            <th>Country</th>
+                            <th>Number</th>
+                            <th>Action</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        <tr *ngFor="let item of dataarray;index as i">
+                            <td>{{item.FirstName}}</td>
+                            <td>{{(item.Subscription)}}</td>
+                            <td>{{item.email}}</td>
+
+                            <td>{{item.Country}}</td>
+                            <td>{{item.Number}}</td>
+                            <td>
+                                <button class="btn btn-danger" (click)="deleteauc(item.id,i)">Delete</button></td>
+                        </tr>
+
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>

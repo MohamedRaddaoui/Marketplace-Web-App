@@ -1,0 +1,34 @@
+.main{
+    width:100%;
+    display:flex;
+    flex-direction:row;
+}
+.filter{
+    width: 20%;
+    height : 100%;
+}
+.row{
+    width:85%;
+    margin :0 12px;
+}
+.cont{
+    margin : 20px 35px ;
+}
+.subcategory{
+    margin-left: 22px;
+}
+.loading{
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+    justify-content : center;
+}
+
+.loading mat-icon{
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+.hide{
+    display:none ;
+}

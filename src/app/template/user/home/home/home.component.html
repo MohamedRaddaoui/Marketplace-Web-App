@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Home</title>
+</head>
+<body>
+    <div class="cover">
+        <div class="welcome-text">
+            <h1>Play by the rules, but be ferocious.</h1>
+            <a routerLink="/user/auction">Auction Now</a>
+        </div>
+    </div>
+
+<div class="stats">
+    <div class="counter-container">
+        <i class="bi bi-person-fill"></i>
+        <div style="color:#2294da ;" class="counter">{{ cutomercount }}</div>
+        <span>Customers</span>
+    </div>
+    <div class="counter-container">
+        <i class="bi bi-bag-check-fill"></i>
+        <div style="color: #45a647;" class="counter">{{ productcount }}</div>
+        <span>Products</span>
+    </div>
+    <div class="counter-container">
+        <i class="bi bi-arrow-left-right"></i>
+        <div style="color:#e5a100 ;" class="counter">{{ transactioncount }}</div>
+        <span>Transactions</span>
+    </div>
+</div>
+<div class="divider"><span></span><span>E-Auction</span><span></span></div>
+<section class="e-auction">
+    <p><i> An E-auction is a transaction between sellers (the auctioneers) and bidders (suppliers in the business to business scenarios) that takes place on an electronic marketplace.</i></p>
+    <img src="assets/images/bid.png" alt="Bidding Image">
+</section>
+<div class="divider"><span></span><span>Reverse-Auction</span><span></span></div>
+<section class="re-auction">
+    <img src="assets/images/bid.png" alt="Bidding Image">
+    <p><i> A reverse auction is a strategy used in sourcing between buyers and suppliers in which sellers compete with one another to win the business of the buyer.</i></p>
+</section>
+    <div class="services">
+        <div class="max-width">
+            <h1>Our Services</h1>
+            <div class="content">
+                <div class="card">
+                    <div class="box">
+                        <i class="fa fa-code"></i>
+                        <h3>Auction</h3>
+                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusamus incidunt labore debitis ea repudiandae numquam.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="box">
+                        <i class="fa fa-line-chart"></i>
+                        <h3>Reverse-Auction</h3>
+                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusamus incidunt labore debitis ea repudiandae numquam.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase</title>
+</head>
+<body>
+<form [formGroup]="purchaseForm" (ngSubmit)="purchase()">
+    <div class="container mt-5 px-5">
+        <div class="mb-4">
+            <h2>Confirm Order And Pay</h2> <span>Please Make The Payment, After That You Can Enjoy All The Features And Benefits.</span>
+        </div>
+            <h2>Purchase Type :</h2> <h3 *ngIf="subId">Subsciption : {{subName}}</h3> <h3 *ngIf="ammount">Pocket Recharge Ammount {{ammount}}TND</h3>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card p-3">
+                    <h6 class="text-uppercase">Payment details</h6>
+                    <div class="inputbox mt-3"> <input type="text" name="Fullname" class="form-control" required formControlName="fullname"> <span>Full Name</span> </div>
+                    <div class="error-msg" *ngIf="fullname.touched && fullname.hasError('required')">
+                        Full Name is <b>required</b> !
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="inputbox mt-3 mr-2"> <input type="text" name="Card Number" class="form-control" required formControlName="cardnumber"> <i class="fa fa-credit-card"></i> <span>Card Number</span> </div>
+                            <div class="error-msg" *ngIf="cardnumber.touched && cardnumber.hasError('required')">
+                        Card number is <b>required</b> !
+                    </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex flex-row">
+                                <div>
+                                <div class="inputbox mt-3 mr-2"> <input type="text" name="Expiry" class="form-control" formControlName="expiry" required> <span>Expiry</span> </div>
+                                <div class="error-msg" *ngIf="expiry.touched && expiry.hasError('required')">
+                                Expiration date is <b>required</b> !
+                                </div>
+                                </div>
+                                <div>
+                                <div class="inputbox mt-3 mr-2"> <input type="text" name="CVV" class="form-control" formControlName="cvv" required> <span>CVV</span> </div>
+                                <div class="error-msg" *ngIf="cvv.touched && cvv.hasError('required')">
+                                CVV is <b>required</b> !
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 mb-4">
+                        <h6 class="text-uppercase">Billing Address</h6>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <div class="inputbox mt-3 mr-2"> <input type="adress" name="Address" class="form-control" formControlName="address" required> <span>Street Address</span> </div>
+                                <div class="error-msg" *ngIf="address.touched && address.hasError('required')">
+                        Address is <b>required</b> !
+                    </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="inputbox mt-3 mr-2"> <input type="text" name="City" class="form-control" formControlName="city" required> <span>City</span> </div>
+                                <div class="error-msg" *ngIf="city.touched && city.hasError('required')">
+                        City is <b>required</b> !
+                    </div>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-6">
+                                <div class="inputbox mt-3 mr-2"> <input type="text" name="State" class="form-control" formControlName="state" required> <span>State/Province</span> </div>
+                                <div class="error-msg" *ngIf="state.touched && state.hasError('required')">
+                        State is <b>required</b> !
+                    </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="inputbox mt-3 mr-2"> <input type="text" name="Zipcode" class="form-control" formControlName="zipcode" required> <span>Zip Code</span> </div>
+                                <div class="error-msg" *ngIf="zipcode.touched && zipcode.hasError('required')">
+                        Zip Code is <b>required</b> !
+                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4 mb-4 d-flex justify-content-between"> <span></span> <button type="submit" class="btn btn-success px-3">Purchase</button> </div>
+            </div>
+        </div>
+    </div>
+</form>
+</body>
+</html>

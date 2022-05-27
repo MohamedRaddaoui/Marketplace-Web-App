@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/css/bootstrap.css?v=3.0">
+    <link rel="stylesheet" href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/css/responsive.css?v=3.0">
+    <link rel="stylesheet" href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/css/ui.css?v=3.0">
+    <title>Profile</title>
+</head>
+<body>
+    <!-- <mat-sidenav-container>
+        <mat-sidenav cdkscrollable="false" mode="side" opened>
+            <mat-nav-list>
+                <a routerLink="edit" mat-list-item><mat-icon>account_circle</mat-icon>Profile Settings</a>
+                <mat-divider></mat-divider>
+                <a routerLink="password-settings" mat-list-item><mat-icon>security</mat-icon>Password Settings</a>
+            </mat-nav-list>
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <router-outlet></router-outlet>
+        </mat-sidenav-content>
+      </mat-sidenav-container> -->
+      <div class="row"> 
+          <aside class="col-lg-3"> 
+              <!-- COMPONENT MENU LIST --> 
+              <div class="card p-3 h-100"> 
+                  <nav class="nav flex-column nav-pills"> 
+                      <a class="nav-link" [routerLinkActive]="'active'" routerLink="edit">Profile setting</a> 
+                      <a class="nav-link" [routerLinkActive]="'active'" routerLink="my-products">My products</a> 
+                      <a class="nav-link" [routerLinkActive]="'active'" routerLink="my-auctions">My auctions</a> 
+                      <a class="nav-link" [routerLinkActive]="'active'" routerLink="my-wishlist">My wishlist</a> 
+                      <a class="nav-link" [routerLinkActive]="'active'" routerLink="my-pocket">My pocket</a> 
+                    </nav> 
+                </div> 
+                      <!-- COMPONENT MENU LIST END .// --> </aside> 
+                      <div class="col-lg-9"> 
+                          <router-outlet></router-outlet>
+        <!-- card .// --> 
+    </div>
+</div>
+</body>
+</html>

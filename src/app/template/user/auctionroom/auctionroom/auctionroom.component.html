@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auction Room</title>
+</head>
+<body>
+    
+<section class="padding-y bg-white shadow-sm">
+        <div class="container">
+            <div class="row">
+                <aside class="col-lg-6">
+                    <article class="gallery-wrap gallery-vertical">
+                        <a href="#" class="img-big-wrap img-thumbnail bg-light"> <img height="520" src="https://scontent.ftun10-1.fna.fbcdn.net/v/t1.15752-9/280803686_1653706181695118_1759340252584954035_n.png?_nc_cat=103&ccb=1-7&_nc_sid=ae9488&_nc_ohc=5xAY6_z0hewAX-hah-W&_nc_ht=scontent.ftun10-1.fna&oh=03_AVKokyA0ko6AxiAtzBHsZtmE8LqAAlzxRa1yy75SPv_YXg&oe=62AA86DE" class="mix-blend-multiply" /> </a>
+                    </article>
+                    <!-- gallery-wrap .end// -->
+                </aside>
+                <div class="col-lg-6">
+                    <article class="ps-lg-3">
+                        <h2 class="title text-dark">
+                            Product Name: <b>PcHP</b>
+                        </h2>
+                        <br>
+                        <br>
+                        <h2 class="title text-dark">
+                            Staring Price : <b>66600</b> TND
+                        </h2>
+                        <h2 class="title text-dark">
+                            Current Price : 
+                        </h2>
+                        <div class="card-body">
+                            <countdown [config]="{ leftTime: 100, format: 's' }"></countdown>
+                        </div>                        
+                        <div class="mt-5">
+                            <div class="input-group mb-3">
+                                <input type="number" class="input-group-text"><button type="button" class="btn btn-light border border-dark auction">Add Price</button><button type="button" class="btn btn-danger">Leave Room</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <!-- col.// -->
+            </div>
+            <!-- row.// -->
+        </div>
+        <!-- container .// -->
+</section>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<form [formGroup]="auctionForm" (ngSubmit)="add()">
+    <div class="modal-body">
+        <label for="auctionprice">Choose Subscreption designation</label>
+        <div class="form-group first">
+            <input type="text" class="form-control" name="auctionprice" id="designation" formControlName="designation" placeholder="Auction price" required>
+            <div class="error-msg" *ngIf="designation.touched && designation.hasError('required')">
+                designation is <b>required</b> !
+            </div>
+        </div>
+        <br>
+        <label for="auctionprice">Choose Subscreption description</label>
+
+        <div class="form-group first">
+            <input type="text" class="form-control" name="description" id="description" formControlName="description" placeholder="Auction price" required>
+            <div class="error-msg" *ngIf="description.touched && description.hasError('required')">
+                description is <b>required</b> !
+            </div>
+        </div>
+        <br>
+        <label for="auctionprice">Choose Subscreption duration</label>
+
+        <div class="form-group first">
+            <input type="number" class="form-control" name="duration" id="duration" formControlName="duration" placeholder="Auction price" required>
+            <div class="error-msg" *ngIf="duration.touched && duration.hasError('required')">
+                duration is <b>required</b> !
+            </div>
+        </div>
+        <br>
+        <label for="auctionprice">Choose Subscreption price</label>
+
+        <div class="form-group first">
+            <input type="number" class="form-control" name="duration" id="priceSubscription" formControlName="priceSubscription" placeholder="Auction price" required>
+            <div class="error-msg" *ngIf="priceSubscription.touched && priceSubscription.hasError('required')">
+                price is <b>required</b> !
+            </div>
+        </div>
+        <div class="alert alert-danger" *ngIf="messageErr">
+            {{messageErr}}
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+</form>

@@ -1,0 +1,16 @@
+.container{
+    width:70%;
+}
+.error-msg{
+    margin-bottom: 10px;
+    font-size: small;
+    color:#f45647;
+  }
+  .incon{
+    display:flex;
+    align-items: center;
+  }
+  .incon mat-icon{
+      margin : 0 5px;
+      color : #45a92b;
+  }

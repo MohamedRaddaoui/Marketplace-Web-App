@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/css/responsive.css?v=3.0">
+    <link rel="stylesheet" href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/css/ui.css?v=3.0">
+
+    <title>Reverse</title>
+</head>
+
+<body>
+    <div class="main">
+        <div class="card mb-3 filter">
+            <div class="card-body">
+                <h5 class="card-title">Categories</h5>
+                <label class="form-check mb-2" *ngFor="let category of categoryArray">
+                        <input class="form-check-input" type="checkbox">
+                        <span class="form-check-label"> {{category.name}} </span>
+                        <label class="form-check subcategory" *ngFor="let subCategory of category.subCategories; let i = index">
+                            <input class="form-check-input" type="checkbox">
+                            <span class="form-check-label"> {{subCategory["name"]}} </span>
+                        </label>
+                </label>
+                <!-- form-check end.// -->
+            </div>
+        </div>
+        <div class="loading" [ngClass]="{ hide : auctionsArray != null}">
+            <mat-icon>loop</mat-icon>
+            <h2>Loading Auctions...</h2>
+        </div>
+        <div class="loading" [ngClass]="{ hide : !(auctionsArray != null && auctionsArray.length == 0)}">
+            <mat-icon>not_interested</mat-icon>
+            <h2>No Auctions Found</h2>
+        </div>
+
+        <div class="row" *ngIf="auctionsArray">
+            <div class="form-outline">
+                <input type="search" id="form1" class="form-control" placeholder="Search" aria-label="Search" [(ngModel)]="searchText">
+            </div>
+            <div class="col-lg-3 col-sm-6 col-12 cont" *ngFor="let auction of auctionsArray | filter:searchText">
+                <div class="card card-product-grid">
+                    <div class="img-wrap">
+                        <span class="topbar">
+                            <a (click)="addToWishlist(auction.id,auction.product[0].id)" class="btn btn-sm btn-light float-end"><i class="fa fa-heart"></i></a>
+                            <span *ngIf="date <= 7" class="badge bg-danger"> Soon </span> </span>
+                        <img src={{auction.image}}>
+                    </div>
+                    <div class="info-wrap border-top">
+                        <p class="title">{{auction.Name}} </p>
+                        <div class="price-wrap"> <strong class="price">Starting price : </strong> {{auction.Price}}DT
+                        </div>
+                        <!-- link-wrap.// -->
+                        <a routerLink="{{auction.id}}" class="btn btn-primary stretched-link">Check</a>
+                    </div>
+                </div>
+                <!-- card // -->
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
