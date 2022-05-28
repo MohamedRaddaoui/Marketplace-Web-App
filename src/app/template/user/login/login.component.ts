@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserAuthService } from 'src/app/services/user/user-auth.service';
 import { UserService } from 'src/app/services/user/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -32,6 +33,12 @@ export class LoginComponent implements OnInit {
     let data:any;
     this.aus.login(this.loginForm).subscribe((response) => {
       data = response
+      Swal.fire({
+        icon: 'success',
+        title: 'Logged in Successfully !',
+        showConfirmButton: false,
+        timer: 1500
+      })     
       this.aus.saveToken(data.token)
       this.router.navigate([this.url])
     },)

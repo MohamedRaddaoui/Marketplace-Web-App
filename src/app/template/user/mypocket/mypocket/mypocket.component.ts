@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { PocketService } from 'src/app/services/pocket/pocket.service';
 import { UserAuthService } from 'src/app/services/user/user-auth.service';
 import { UserService } from 'src/app/services/user/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-mypocket',
@@ -21,9 +22,6 @@ export class MypocketComponent implements OnInit {
     this.us.getUserByemail(user.username).subscribe((data) => {
       user = data;
     this.currentBalance = user[0].pocket
-console.log(  this.currentBalance )
-
-
     });
       this.pocketForm = fb.group({
       balance: ['', Validators.required]
@@ -34,6 +32,12 @@ console.log(  this.currentBalance )
   }
 
   purchase(){
+    Swal.fire({
+      icon: 'success',
+      title: 'You will be redirected to confirm your payment !',
+      showConfirmButton: false,
+      timer: 3000
+    })     
     this.route.navigate(['/purchase-subscription'],{queryParams:{Ammount:this.balance.value}})
   }
   get balance(){

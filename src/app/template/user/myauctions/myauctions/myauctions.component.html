@@ -62,6 +62,7 @@
                     <td>{{re_auction.Date}}</td>
                     <td>
                         <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editreverseModal" (click)="getRe_AuctionData(re_auction)">Edit</button>
+                        <button class="btn btn-info" (click)="stopR_auction(re_auction)">Stop</button>
                         <button class="btn btn-danger" (click)="deleteRe_Auction(re_auction.id,j)">Delete</button>
                     </td>
                 </tr>
@@ -105,14 +106,6 @@
                         <div class="error-msg" *ngIf="auctionDate.touched && auctionDate.hasError('required')">
                             Starting Date is <b>required</b> !
                         </div>
-                        <br>
-                        <label for="productname">Choose Product</label>
-                        <select class="form-select" name="productname" formControlName="productname" required>
-                <option *ngFor="let prod of productsArray" [value]="prod.id">{{prod.designation}}</option>
-              </select>
-                        <div class="error-msg" *ngIf="productname.touched && productname.hasError('required')">
-                            Product Name is <b>required</b> !
-                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -132,7 +125,7 @@
               <span aria-hidden="true">&times;</span>
             </button>
                 </div>
-                <form [formGroup]="auctionForm" (ngSubmit)="add()">
+                <form [formGroup]="auctionForm" (ngSubmit)="update()">
                     <div class="modal-body">
                         <label for="auctionprice">Auction Price</label>
                         <div class="form-group first">
@@ -148,14 +141,6 @@
                         </div>
                         <div class="error-msg" *ngIf="auctionDate.touched && auctionDate.hasError('required')">
                             Starting Date is <b>required</b> !
-                        </div>
-                        <br>
-                        <label for="productname">Product</label>
-                        <select class="form-select" name="productname" formControlName="productname" required>
-                            <option *ngFor="let prod of productsArray" [value]="prod.id">{{prod.designation}}</option>
-                        </select>
-                        <div class="error-msg" *ngIf="productname.touched && productname.hasError('required')">
-                            Product Name is <b>required</b> !
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -193,14 +178,6 @@
                         <div class="error-msg" *ngIf="re_auctionDate.touched && re_auctionDate.hasError('required')">
                             Starting Date is <b>required</b> !
                         </div>
-                        <br>
-                        <label for="productname">Choose Product</label>
-                        <select class="form-select" name="productname" formControlName="re_productname" required>
-                  <option *ngFor="let prod of productsArray" [value]="prod.id">{{prod.designation}}</option>
-                </select>
-                        <div class="error-msg" *ngIf="re_productname.touched && re_productname.hasError('required')">
-                            Product Name is <b>required</b> !
-                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -215,12 +192,12 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editreverseModalLabel1">Add Reverse Auction</h5>
+                    <h5 class="modal-title" id="editreverseModalLabel1">Edit Reverse Auction</h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
                 </div>
-                <form [formGroup]="re_auctionForm" (ngSubmit)="re_add()">
+                <form [formGroup]="re_auctionForm" (ngSubmit)="re_update()">
                     <div class="modal-body">
                         <label for="auctiontitle">Choose Auction Title</label>
                         <div class="form-group first">
@@ -236,14 +213,6 @@
                         </div>
                         <div class="error-msg" *ngIf="re_auctionDate.touched && re_auctionDate.hasError('required')">
                             Starting Date is <b>required</b> !
-                        </div>
-                        <br>
-                        <label for="productname">Choose Product</label>
-                        <select class="form-select" name="productname" formControlName="re_productname" required>
-                  <option *ngFor="let prod of productsArray" [value]="prod.id">{{prod.designation}}</option>
-                </select>
-                        <div class="error-msg" *ngIf="re_productname.touched && re_productname.hasError('required')">
-                            Product Name is <b>required</b> !
                         </div>
                     </div>
                     <div class="modal-footer">

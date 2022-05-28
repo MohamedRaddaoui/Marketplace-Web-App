@@ -38,9 +38,13 @@
 
         <div class="row" *ngIf="auctionsArray">
             <div class="form-outline">
-                <input type="search" id="form1" class="form-control" placeholder="Search" aria-label="Search" [(ngModel)]="searchText">
+                <div class="container d-flex">
+                    <a (click)='changefilter("prochain")'>Prochain</a>
+                    <a (click)='changefilter("encours")'>En cours</a>
+                    <a (click)='changefilter("terminer")'>Terminé</a>
+                </div>
             </div>
-            <div class="col-lg-3 col-sm-6 col-12 cont" *ngFor="let auction of auctionsArray | filter:searchText">
+            <div class="col-lg-3 col-sm-6 col-12 cont" *ngFor="let auction of auctionsArray">
                 <div class="card card-product-grid">
                     <div class="img-wrap">
                         <span class="topbar">

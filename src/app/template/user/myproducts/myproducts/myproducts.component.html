@@ -73,30 +73,36 @@
                     <form [formGroup]="productForm" (ngSubmit)="add()">
                         <div class="modal-body">
                             <div class="form-group first">
-                                <label for="productbrand">Product name</label>
-                                <input type="text" class="form-control" name="productbname" id="name" formControlName="name" placeholder="Exemple : HP, Dell, Samsung, Huawei" required>
-                                <div class="error-msg" *ngIf="name.touched && name.hasError('required')">
+                                <label for="productdesignation">Product designation</label>
+                                <input type="text" class="form-control" name="productdesignation" id="designation" formControlName="designation" placeholder="Exemple : HP, Dell, Asus" required>
+                                <div class="error-msg" *ngIf="designation.touched && designation.hasError('required')">
+                                    Product designation is <b>required</b> !
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="productquantity">Product quantity</label>
+                                <input type="number" class="form-control" name="productquantity" id="quantity" formControlName="quantity" placeholder="0" required>
+                                <div class="error-msg" *ngIf="quantity.touched && quantity.hasError('required')">
+                                    Product designation is <b>required</b> !
+                                </div>
+                            </div>
+                            <br>                            <div class="form-group">
+                                <label for="productdescription">Product name</label>
+                                <textarea name="productdescription" id="name" formControlName="description" required></textarea>
+                                <div class="error-msg" *ngIf="description.touched && description.hasError('required')">
                                     Product name is <b>required</b> !
                                 </div>
                             </div>
-                            <br>
-                            <div class="form-group">
-                                <label for="productbrand">Product brand</label>
-                                <input type="text" class="form-control" name="productbrand" id="brand" formControlName="brand" placeholder="Exemple : HP, Dell, Asus" required>
-                                <div class="error-msg" *ngIf="brand.touched && brand.hasError('required')">
-                                    Product brand is <b>required</b> !
-                                </div>
-                            </div>
-                            <br>
-                            <div class="form-group">
-                                <label for="productbrand">Product image</label><br>
+                            <!-- <div class="form-group">
+                                <label for="productimage">Product image</label><br>
                                 <img src={{img}} class="img-sm border rounded">
                                 <input type="file" class="form-control" name="productbimage" id="image" formControlName="image" required>
     
                                 <div class="error-msg" *ngIf="image.touched && image.hasError('required')">
-                                    Product name is <b>required</b> !
+                                    Product image is <b>required</b> !
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-primary">Save</button>
@@ -116,32 +122,40 @@
                 <span aria-hidden="true">&times;</span>
               </button>
                     </div>
-                    <form [formGroup]="productForm" (ngSubmit)="add()">
+                    <form [formGroup]="productForm" (ngSubmit)="update()">
                         <div class="modal-body">
                             <div class="form-group first">
-                                <label for="productbrand">Product name</label>
-                                <input type="text" class="form-control" name="productbname" id="name" formControlName="name" placeholder="Exemple : HP, Dell, Samsung, Huawei" required>
-                                <div class="error-msg" *ngIf="name.touched && name.hasError('required')">
-                                    Product name is <b>required</b> !
+                                <label for="productdesignation">Product designation</label>
+                                <input type="text" class="form-control" name="productdesignation" id="designation" formControlName="designation" placeholder="Exemple : HP, Dell, Asus" required>
+                                <div class="error-msg" *ngIf="designation.touched && designation.hasError('required')">
+                                    Product designation is <b>required</b> !
                                 </div>
                             </div>
                             <br>
                             <div class="form-group">
-                                <label for="productbrand">Product brand</label>
-                                <input type="text" class="form-control" name="productbrand" id="brand" formControlName="brand" placeholder="Exemple : HP, Dell, Asus" required>
-                                <div class="error-msg" *ngIf="brand.touched && brand.hasError('required')">
-                                    Product brand is <b>required</b> !
+                                <label for="productquantity">Product quantity</label>
+                                <input type="number" class="form-control" name="productquantity" id="quantity" formControlName="quantity" placeholder="0" required>
+                                <div class="error-msg" *ngIf="quantity.touched && quantity.hasError('required')">
+                                    Product designation is <b>required</b> !
                                 </div>
                             </div>
                             <br>
                             <div class="form-group">
-                                <label for="productbrand">Product image</label><br>
+                                <label for="productdescription">Product name</label>
+                                <textarea name="productdescription" id="name" formControlName="description" required></textarea>
+                                <div class="error-msg" *ngIf="description.touched && description.hasError('required')">
+                                    Product desciption is <b>required</b> !
+                                </div>
+                            </div>
+                            <!-- <br>
+                            <div class="form-group">
+                                <label for="productdesignation">Product image</label><br>
                                 <img src={{img}} class="img-sm border rounded">
                                 <input type="file" class="form-control" name="productbimage" id="image" (change)="onFileSelect($event)" formControlName="image" required>
                                 <div class="error-msg" *ngIf="image.touched && image.hasError('required')">
                                     Product image is <b>required</b> !
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-primary">Save</button>

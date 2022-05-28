@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/f
 import { Router } from '@angular/router';
 import { UserAuthService } from 'src/app/services/user/user-auth.service';
 import { UserService } from 'src/app/services/user/user.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -32,11 +33,15 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
   }
   signup(){
-    console.log(this.signupForm.value);
-
     this.us.addUser(this.signupForm).subscribe((data) => {
-      console.log(data);
+      Swal.fire({
+      icon: 'success',
+      title: 'Signed up successfully !',
+      showConfirmButton: false,
+      timer: 1500
     })
+    this.route.navigate(['/'])
+  })
   }
   get FirstName(){
     return this.signupForm.get('FirstName');

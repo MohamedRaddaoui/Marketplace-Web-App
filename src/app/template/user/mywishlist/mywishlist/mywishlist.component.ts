@@ -3,6 +3,7 @@ import { UserAuthService } from 'src/app/services/user/user-auth.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { WishlistService } from 'src/app/services/wishlist/wishlist.service';
 import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-mywishlist',
@@ -21,9 +22,8 @@ export class MywishlistComponent implements OnInit {
       console.log( this.user)
       this.wishlist= this.user.wishlist.auctions
       this.wishlist.forEach((auction : any) => {
-
         auction.products.image=	this.back_URL+'/uploads/images/products/'+ auction.products.image;
-        auction.date = new Date(auction.date.timestamp * 1000).toISOString().slice(0, 10);
+        auction.Date = new Date(auction.Date.timestamp * 1000).toISOString().slice(0, 10);
       })  })
    }
 
@@ -31,6 +31,13 @@ export class MywishlistComponent implements OnInit {
   }
 
   deleteWish(id:any,index:any){
-    this.ws.deleteWishlist( this.user.id,id).subscribe(() => this.wishlist.splice(index, 1))
+    this.ws.deleteWishlist( this.user.id,id).subscribe(() => {
+      Swal.fire({
+      icon: 'success',
+      title: 'Auction has been deleted',
+      showConfirmButton: false,
+      timer: 1500
+    })
+  })
   }
 }

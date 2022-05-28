@@ -5,6 +5,7 @@ import { ProductsService } from 'src/app/services/products/products.service';
 import { UserAuthService } from 'src/app/services/user/user-auth.service';
 import { WishlistService } from 'src/app/services/wishlist/wishlist.service';
 import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-reverse',
@@ -69,7 +70,12 @@ addDays(days : number): Date{
       productId : prodId
     }
       this.ws.addToWishlist(user.id,obj).subscribe((response)=>{
-        console.log(response)
+        Swal.fire({
+        icon: 'success',
+        title: 'Auction has been added to wishlist!',
+        showConfirmButton: false,
+        timer: 1500
       })
+    })
   }
 }

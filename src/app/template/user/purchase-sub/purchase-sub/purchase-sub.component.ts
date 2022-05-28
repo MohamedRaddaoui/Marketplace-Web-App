@@ -5,6 +5,7 @@ import { PocketService } from 'src/app/services/pocket/pocket.service';
 import { SubcriptiontypeService } from 'src/app/services/sub/subcriptiontype.service';
 import { UserAuthService } from 'src/app/services/user/user-auth.service';
 import { UserService } from 'src/app/services/user/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-purchase-sub',
@@ -57,10 +58,21 @@ export class PurchaseSubComponent implements OnInit {
 
       console.log(this.user.id)
       this.as.updateUser2(this.user.id,this.user.Subscription.id).subscribe((response) => {
+        Swal.fire({
+        icon: 'success',
+        title: '<b>Congrats!</b> you have purchased a subscription.',
+        showConfirmButton: false,
+        timer: 1500
       })
+    })
     }else if (this.ammount){
-      //Fonction Mtaa naatiha id wl ammount w hiya tnik ro7ha
       this.as.addtopck(this.user.id,this.ammount).subscribe((response) => {
+        Swal.fire({
+        icon: 'success',
+        title: '<b>Congrats!</b> you have recharged your pocket.',
+        showConfirmButton: false,
+        timer: 1500
+      })
         this.route.navigate(['myprofile/my-pocket']);
       })
 

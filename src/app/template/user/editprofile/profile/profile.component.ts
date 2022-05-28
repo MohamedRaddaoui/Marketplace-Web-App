@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { UserAuthService } from 'src/app/services/user/user-auth.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-profile',
@@ -61,10 +62,14 @@ export class ProfileComponent implements OnInit {
     fd.append("birthDate",this.birthDate)
     fd.append("image",this.selectedFile)
     this.us.updateUser(fd,id).subscribe((data) => {
-
-      console.log(data);
-         })});
-    console.log(id);
+      Swal.fire({
+        icon: 'success',
+        title: 'User has been updated',
+        showConfirmButton: false,
+        timer: 1500
+      })      
+         })
+        });
   }
   onFileSelected(event : any) {
     this.selectedFile = <File>event.target.files[0];

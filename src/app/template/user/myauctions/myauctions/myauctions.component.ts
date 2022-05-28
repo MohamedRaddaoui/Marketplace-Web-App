@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { AuctionService } from 'src/app/services/auction/auction.service';
 import { UserAuthService } from 'src/app/services/user/user-auth.service';
 import { UserService } from 'src/app/services/user/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-myauctions',
@@ -15,25 +16,24 @@ export class MyauctionsComponent implements OnInit {
   productsArray : any = null;
   auctionForm : any
   re_auctionForm : any
+  user : any
   constructor(private aucs:AuctionService, private us:UserService, private aus:UserAuthService, private fb:FormBuilder) {
     this.auctionForm = fb.group({
       price: ['', Validators.required],
-      auctionDate: ['', Validators.required],
-      productname : ['',Validators.required],
+      auctionDate: ['', Validators.required]
     })
     this.re_auctionForm = fb.group({
       title: ['', Validators.required],
-      re_auctionDate: ['', Validators.required],
-      re_productname : ['',Validators.required],
+      re_auctionDate: ['', Validators.required]
     })
 
-    let user = this.aus.getUserFromToken(this.aus.getToken());
-    this.us.getUserByemail(user.username).subscribe(data =>{
+    this.user = this.aus.getUserFromToken(this.aus.getToken());
+    this.us.getUserByemail(this.user.username).subscribe(data =>{
 
-      user=data
-      user=user[0]
-      this.auctionArray=user.Auctions
-      this.reverseAuctionArray=user.ReverseAuction
+      this.user=data
+      this.user=this.user[0]
+      this.auctionArray=this.user.Auctions
+      this.reverseAuctionArray=this.user.ReverseAuction
 
       console.log(this.reverseAuctionArray)
 
@@ -53,38 +53,91 @@ export class MyauctionsComponent implements OnInit {
         rauction.Date = new Date(rauction.Date.timestamp* 1000).toISOString().slice(0, 10);
 
       })
-      this.productsArray=user.products
-      console.log(user)
+      this.productsArray=this.user.products
+      console.log(this.user)
     } )
 
 
   }
 
     add(){
-      this.aucs.addAuction(this.auctionForm.value).subscribe(data => console.log(data))
+      this.auctionForm.value.usern_id = this.user.id
+      this.aucs.addAuction(this.auctionForm.value).subscribe(data => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Auction has been added',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      })
     }
     re_add(){
-      this.aucs.addR_auction(this.auctionForm.value).subscribe(data => console.log(data))
+      this.auctionForm.value.usern_id = this.user.id
+      this.aucs.addR_auction(this.re_auctionForm.value).subscribe(data => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Reverse auction has been added',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      })
+    }
+    update(){
+      this.aucs.updateAuction(this.user.id,this.auctionForm.value).subscribe(data => {
+        Swal.fire({
+        icon: 'success',
+        title: 'Auction has been updated',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    })
+    }
+    re_update(){
+      this.aucs.updateR_auction(this.user.id,this.re_auctionForm.value).subscribe(data => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Reverse auction has been updated',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      })
     }
     getAuctionData(auction : any){
       this.auctionForm.setValue({
         price:  auction.price || "",
-        auctionDate: auction.date  || "",
-        productname: auction.prodname  || ""
+        auctionDate: auction.date  || ""
       });
     }
     getRe_AuctionData(auction : any){
       this.re_auctionForm.setValue({
         price:  auction.price || "",
-        re_auctionDate: auction.date  || "",
-        re_productname: auction.prodname  || ""
+        re_auctionDate: auction.date  || ""
       });
     }
     deleteAuction(id:any, index:any){
-      this.aucs.deleteAuction(id).subscribe(() => this.auctionArray.splice(index, 1))
+      this.aucs.deleteAuction(id).subscribe(() => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Auction has been deleted',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        this.auctionArray.splice(index, 1)
+      })
     }
     deleteRe_Auction(id:any, index:any){
-      this.aucs.deleteR_auction(id).subscribe(() => this.reverseAuctionArray.splice(index, 1))
+      this.aucs.deleteR_auction(id).subscribe(() => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Reverse auction has been deleted',
+          showConfirmButton: false,
+          timer: 1500
+        })     
+        this.reverseAuctionArray.splice(index, 1)
+      })
+    }
+    stopR_auction(auction : any){
+      //Fonction mtaa Stop
     }
     get price(){
       return this.auctionForm.get('price');

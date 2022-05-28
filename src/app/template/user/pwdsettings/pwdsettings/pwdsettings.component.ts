@@ -19,24 +19,16 @@ export class PwdsettingsComponent implements OnInit {
       oldpassword: ['', Validators.required],
       newpassword: ['', [Validators.required,Validators.minLength(8)]]
     })
-    /*this.aus.getUserFromToken(this.aus.getToken()).subscribe((response: any) => {
-      this.user = this.us.getUserByemail(response.email)
-    })*/
 
    }
 
   ngOnInit(): void {
-  }
-  changePwd(){
-      //this.user.plainpasssword = this.newpassword
-      //this.us.updateUser(this.user,this.user.id)
   }
    checkPwd(){
     let user ={
       id : 10
     }
     this.aus.checkPassword(user.id, this.oldpassword.value).subscribe((response) => {
-      console.log(response);
       let data: any = response;
       let code = data.code;
       if(code == 1){

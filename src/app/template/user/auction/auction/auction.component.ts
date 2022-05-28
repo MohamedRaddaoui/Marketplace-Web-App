@@ -6,6 +6,7 @@ import { WishlistService } from 'src/app/services/wishlist/wishlist.service';
 import { UserAuthService } from 'src/app/services/user/user-auth.service';
 import { environment } from 'src/environments/environment';
 import { UserService } from 'src/app/services/user/user.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -67,10 +68,23 @@ export class AuctionComponent implements OnInit {
     this.as.getUserByemail(user.username).subscribe((response) => {
       user = response
       this.ws.addToWishlist(user[0].id,aucId).subscribe((response)=>{
-        console.log(response)
+        Swal.fire({
+          icon: 'success',
+          title: 'Your Auction has been saved',
+          showConfirmButton: false,
+          timer: 1500
+        })      
       })
     })
-
-
+  }
+  changefilter(type : any){
+    if(type == "prochain"){
+      this.auctionsArray = this.auctionsArray.filter((auction : any) => auction.etat == "prochain")
+    }else if(type == "encours"){
+      this.auctionsArray = this.auctionsArray.filter((auction : any) => auction.etat == "encours")
+    }else if (type == "terminer"){
+      this.auctionsArray = this.auctionsArray.filter((auction : any) => auction.etat == "terminer")
+    }
   }
 }
+

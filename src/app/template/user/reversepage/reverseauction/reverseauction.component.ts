@@ -7,6 +7,7 @@ import { ProductsService } from 'src/app/services/products/products.service';
 import { UserAuthService } from 'src/app/services/user/user-auth.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-reverseauction',
@@ -34,39 +35,28 @@ export class ReverseauctionComponent implements OnInit {
         this.ReversAuction=params['id']
         this.ps.getProduct(this.reverseauction.products.slice(this.reverseauction.products.lastIndexOf('/')+1,this.reverseauction.products.length)).subscribe((response) => {
           this.reverseauction.products = response
-
-
           this.reverseauction.offers.forEach((offer: any,i:any)=> {
             this.ofs.getOffer(offer.slice(offer.lastIndexOf('/')+1,offer.length)).subscribe((response) => {
               this.offersArray.push(response) ;
               this.as.getUser( this.offersArray[i].user.slice(this.offersArray[i].user.lastIndexOf('/')+1,this.offersArray[i].user.length)).subscribe((response) => {
                 this.offersArray[i].user=response
                 this.offersArray[i].user.image = 	this.back_URL+'/uploads/images/products/'+this.offersArray[i].user.image;
-
-            })    ;
-
-
-
-
-
-          })    ;})
-                    console.log(    this.offersArray);
-
-                this.reverseauction.products.image=	this.back_URL+'/uploads/images/products/'+   this.reverseauction.products.image;
+            })
+          })
+        })
+        this.reverseauction.products.image=	this.back_URL+'/uploads/images/products/'+   this.reverseauction.products.image;
         })
         console.log(this.reverseauction)
       })
     })
     this.offerForm = fb.group({
-
       Offerprice: ['', Validators.required],
-      comment : ['',Validators.required],
+      comment : ['',Validators.required]
     })
 
     this.offerFormUpdate = fb.group({
-      quantity: ['', Validators.required],
       Offerprice: ['', Validators.required],
-      comment : ['',Validators.required],
+      comment : ['',Validators.required]
     })
 
     let token : any = this.aus.getToken();
@@ -80,12 +70,14 @@ export class ReverseauctionComponent implements OnInit {
   ngOnInit(): void {
   }
   addOffer(){
-
-    console.log(this.offerForm.value)
-
     this.ofs.addOffer(this.user,this.ReversAuction,this.offerForm.value).subscribe((response) => {
-      console.log(response)
+      Swal.fire({
+      icon: 'success',
+      title: 'Offer has been added',
+      showConfirmButton: false,
+      timer: 1500
     })
+  })
   }
   getOfferData(offer : any){
     this.offerFormUpdate.setValue({
@@ -96,8 +88,13 @@ export class ReverseauctionComponent implements OnInit {
   }
   updateOffer(){
     this.ofs.updateOffer(this.offerId,this.offerFormUpdate.value).subscribe((response) => {
-      console.log(response)
+      Swal.fire({
+      icon: 'success',
+      title: 'Offer has been updated',
+      showConfirmButton: false,
+      timer: 1500
     })
+  })
   }
 
   get quantity(){
