@@ -14,7 +14,7 @@ export class PocketService {
     return this.httpclient.get(this.back_URL +'/api/pockets/')
   }
   getUserpocketById(id:any){
-    return this.httpclient.get(this.back_URL +`/api/pockets/${id}`)
+    return this.httpclient.get(this.back_URL +`/usern/getUserpocketById/${id}`)
   }
   getpocket (id:any){
     return this.httpclient.get(this.back_URL +`/api/pockets/${id}`)

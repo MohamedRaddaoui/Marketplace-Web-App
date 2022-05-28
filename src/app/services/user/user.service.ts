@@ -37,7 +37,18 @@ params = new HttpParams({
   deleteUser(id:any){
     return this.httpclient.delete(this.back_URL +`/api/userns/${id}`)
   }
-  updateUser(newUser:any,id:any){
+  updateUser(id:any,newUser:any){
     return this.httpclient.put(this.back_URL +`/api/userns/${id}`,newUser)
   }
+
+  updateUser2(id:any,ids:any){
+    return this.httpclient.put(this.back_URL +`/usern/AddSub/${id}/${ids}`,null)
+  }
+
+  addtopck(id:any,ids:any){
+    return this.httpclient.post(this.back_URL +`/usern/AddToPocket/${id}/${ids}`,null)
+  }
+
+
+
 }

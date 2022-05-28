@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <div class="table-responsive">
         <table class="table">
@@ -22,9 +24,9 @@
             <tbody *ngIf="auctionArray">
                 <tr *ngFor="let auction of auctionArray; let i = index">
                     <th scope="row">{{i}}</th>
-                    <td>{{auction.name}}</td>
-                    <td>{{auction.price}}</td>
-                    <td>{{auction.date}}</td>
+                    <td>{{auction.Name}}</td>
+                    <td>{{auction.Price}}</td>
+                    <td>{{auction.Date}}</td>
                     <td>
                         <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editauctionModal" (click)="getAuctionData(auction)">Edit</button>
                         <button class="btn btn-danger" (click)="deleteAuction(auction.id,i)">Delete</button>
@@ -39,7 +41,7 @@
             </tfoot>
         </table>
     </div>
-    
+
     <div class="table-responsive">
         <table class="table">
             <thead>
@@ -55,9 +57,9 @@
             <tbody *ngIf="reverseAuctionArray">
                 <tr *ngFor="let re_auction of reverseAuctionArray; let j = index">
                     <th scope="row">{{j}}</th>
-                    <td>{{re_auction.name}}</td>
-                    <td>{{re_auction.price}}</td>
-                    <td>{{re_auction.date}}</td>
+                    <td>{{re_auction.Name}}</td>
+                    <td>{{re_auction.Price}}</td>
+                    <td>{{re_auction.Date}}</td>
                     <td>
                         <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editreverseModal" (click)="getRe_AuctionData(re_auction)">Edit</button>
                         <button class="btn btn-danger" (click)="deleteRe_Auction(re_auction.id,j)">Delete</button>
@@ -72,10 +74,10 @@
             </tfoot>
         </table>
     </div>
-    
-    
-    
-    
+
+
+
+
     <!-- Modal -->
     <div class="modal fade" id="auctionModal" tabindex="-1" role="dialog" aria-labelledby="auctionModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -253,4 +255,5 @@
         </div>
     </div>
 </body>
+
 </html>

@@ -16,9 +16,16 @@ export class MypocketComponent implements OnInit {
   pocketForm : any
 
   constructor(private pcks:PocketService,private us:UserService, private aus:UserAuthService, private fb:FormBuilder,private route:Router) {
-    let user = this.aus.getUserFromToken(this.aus.getToken());
-    this.pcks.getUserpocketById(user.id).subscribe((response)=> this.currentBalance = response);
-    this.pocketForm = fb.group({
+    let token : any = this.aus.getToken();
+    let user : any=this.aus.getUserFromToken(token);
+    this.us.getUserByemail(user.username).subscribe((data) => {
+      user = data;
+    this.currentBalance = user[0].pocket
+console.log(  this.currentBalance )
+
+
+    });
+      this.pocketForm = fb.group({
       balance: ['', Validators.required]
     })
   }
@@ -27,7 +34,7 @@ export class MypocketComponent implements OnInit {
   }
 
   purchase(){
-    this.route.navigate(['/purchase-subscription',{queryParams:{Ammount:this.currentBalance}}])
+    this.route.navigate(['/purchase-subscription'],{queryParams:{Ammount:this.balance.value}})
   }
   get balance(){
     return this.pocketForm.get('balance');

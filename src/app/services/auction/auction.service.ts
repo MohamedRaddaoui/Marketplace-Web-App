@@ -13,6 +13,14 @@ export class AuctionService {
   constructor(private httpclient:HttpClient) {
 
   }
+  StartAuctions(){
+    return this.httpclient.get(this.back_URL +'/usern/aucroom')
+  }
+  CloseAuctions(){
+    return this.httpclient.get(this.back_URL +'/usern/aucroom2')
+  }
+
+
   getallAuctions(){
    return this.httpclient.get(this.back_URL +'/usern/FindbyrequestAuc/Accepted')
   }  getallrAuctions(){

@@ -21,6 +21,18 @@ export class AuctionComponent implements OnInit {
   page : string = ""
   categoryArray : any
   constructor(private aucs:AuctionService, private cs:CategoryService, private prs:ProductsService, private ws:WishlistService, private aus:UserAuthService,private as:UserService) {
+
+  this.aucs.StartAuctions().subscribe(response => {
+
+
+    console.log(response);
+  });
+  this.aucs.CloseAuctions().subscribe(response => {
+
+
+    console.log(response);
+  });
+
     this.cs.getallCategories().subscribe(response => {
       this.categoryArray = response
       this.categoryArray.forEach((category : any , index : number)=> {

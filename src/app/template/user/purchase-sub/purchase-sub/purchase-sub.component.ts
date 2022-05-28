@@ -17,8 +17,8 @@ export class PurchaseSubComponent implements OnInit {
   subId : any = null;
   ammount : any = null;
   subName : any
-  sub : any 
-  constructor(fb:FormBuilder,private ss:SubcriptiontypeService,private router:ActivatedRoute, private as:UserService,public aus:UserAuthService, private pks:PocketService) {
+  sub : any
+  constructor(fb:FormBuilder,private ss:SubcriptiontypeService,private router:ActivatedRoute, private as:UserService,public aus:UserAuthService, private pks:PocketService,private route:Router) {
     this.purchaseForm = fb.group({
       fullname: ['', Validators.required],
       cardnumber: ['', Validators.required],
@@ -31,6 +31,8 @@ export class PurchaseSubComponent implements OnInit {
       })
       this.subId  = this.router.snapshot.queryParams['SubType'] || null
       this.ammount  = this.router.snapshot.queryParams['Ammount'] || null
+      console.log( this.router.snapshot)
+
       if(this.subId){
         this.ss.getSub(this.subId).subscribe((response) => {
           this.sub = response
@@ -47,15 +49,22 @@ export class PurchaseSubComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  
+
   purchase(){
+
     if(this.subId){
-      this.user.subscription = this.sub
-      this.as.updateUser(this.user.id,this.purchaseForm.value).subscribe((response) => {
-        console.log(response)
+      this.user.Subscription = this.sub
+
+      console.log(this.user.id)
+      this.as.updateUser2(this.user.id,this.user.Subscription.id).subscribe((response) => {
       })
     }else if (this.ammount){
       //Fonction Mtaa naatiha id wl ammount w hiya tnik ro7ha
+      this.as.addtopck(this.user.id,this.ammount).subscribe((response) => {
+        this.route.navigate(['myprofile/my-pocket']);
+      })
+
+
     }
   }
   get fullname() {
@@ -69,7 +78,7 @@ export class PurchaseSubComponent implements OnInit {
   }
   set cardnumber(value) {
     this.cardnumber = value;
-  }  
+  }
   get expiry() {
     return this.purchaseForm.get("expiry");
   }

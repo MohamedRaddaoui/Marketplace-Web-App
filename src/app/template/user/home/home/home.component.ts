@@ -1,3 +1,4 @@
+import { AuctionService } from 'src/app/services/auction/auction.service';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user/user.service';
 
@@ -8,7 +9,10 @@ import { UserService } from 'src/app/services/user/user.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private Us:UserService) {
+  constructor(private Us:UserService,private aucs :AuctionService) {
+
+    this.aucs.StartAuctions();
+    this.aucs.CloseAuctions();
    }
 
   ngOnInit(): void {

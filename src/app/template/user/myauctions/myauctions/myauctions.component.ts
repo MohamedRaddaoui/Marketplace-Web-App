@@ -33,15 +33,24 @@ export class MyauctionsComponent implements OnInit {
       user=data
       user=user[0]
       this.auctionArray=user.Auctions
-      console.log(this.auctionArray)
+      this.reverseAuctionArray=user.ReverseAuction
+
+      console.log(this.reverseAuctionArray)
+
       this.auctionArray.forEach((auction : any) => {
-        auction.date = new Date(auction.date.timestamp* 1000).toISOString().slice(0, 10);
+        console.log(auction)
+
+        auction.Date = new Date(auction.Date.timestamp* 1000).toISOString().slice(0, 10);
+
+        console.log(auction.Date)
 
       })
 
-      this.reverseAuctionArray=user.ReverseAuction
-      this.reverseAuctionArray.forEach((auction : any) => {
-        auction.date = new Date(auction.date.timestamp* 1000).toISOString().slice(0, 10);
+
+      this.reverseAuctionArray.forEach((rauction : any) => {
+        console.log( rauction.date)
+
+        rauction.Date = new Date(rauction.Date.timestamp* 1000).toISOString().slice(0, 10);
 
       })
       this.productsArray=user.products

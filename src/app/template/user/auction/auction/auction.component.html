@@ -45,8 +45,9 @@
                     <div class="img-wrap">
                         <span class="topbar">
                             <a (click)="addToWishlist(auction.id)" class="btn btn-sm btn-light float-end"><i class="fa fa-heart"></i></a>
-                            <span *ngIf="auction.etat == 'prochain'" class="badge bg-danger"> Soon </span> </span>
-                            <span *ngIf="auction.etat == 'termine'" class="badge bg-danger"> Finished </span>
+                            <span *ngIf="auction.etat == 'terminer'" class="badge bg-danger"> Finished </span>
+
+                        <span *ngIf="auction.etat == 'prochain'" class="badge bg-success"> Soon </span> </span>
                         <img src={{auction.image}}>
                     </div>
                     <div class="info-wrap border-top">
@@ -54,7 +55,7 @@
                         <div class="price-wrap"> <strong class="price">Starting price : </strong> {{auction.Price}}DT
                         </div>
                         <!-- Date-wrap.// -->
-                        <div class="price-wrap" *ngIf="auction.etat == 'prochain'"> <strong class="price">Starting Date : </strong> {{auction.date | date}}
+                        <div class="price-wrap" *ngIf="auction.etat == 'prochain'"> <strong class="price">Starting Date : </strong> {{auction.Date | date}}
                         </div>
                         <!-- link-wrap.// -->
                         <a routerLink="/auction-room/{{auction.id}}" *ngIf="auction.etat == 'encours'" class="btn btn-primary stretched-link">Participer</a>
