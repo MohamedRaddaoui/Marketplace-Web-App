@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Auctions</title>
 </head>
 
 <body>
@@ -91,20 +91,42 @@
                 </div>
                 <form [formGroup]="auctionForm" (ngSubmit)="add()">
                     <div class="modal-body">
+                        <input type="text" class="form-control" formControlName="id" hidden>
+
+                        <label for="auctionprice">Choose Auction Name</label>
+                        <div class="form-group first">
+                            <input type="text" class="form-control" name="auctionprice" id="price" formControlName="Name" placeholder="Auction Name" required>
+                            <div class="error-msg" *ngIf="Name.touched && Name.hasError('required')">
+                                Name is <b>required</b> !
+                            </div>
+                        </div>
+                        <br>
                         <label for="auctionprice">Choose Auction Price</label>
                         <div class="form-group first">
-                            <input type="text" class="form-control" name="auctionprice" id="price" formControlName="price" placeholder="Auction price" required>
-                            <div class="error-msg" *ngIf="price.touched && price.hasError('required')">
+                            <input type="number" class="form-control" name="auctionprice" id="price" formControlName="Price" placeholder="Auction price" required>
+                            <div class="error-msg" *ngIf="Price.touched && Price.hasError('required')">
                                 Price is <b>required</b> !
                             </div>
                         </div>
                         <br>
                         <label for="startingdate">Choose Publish Date</label>
                         <div class="form-group">
-                            <input type="date" class="form-control" name="startingdate" id="date" formControlName="auctionDate" placeholder="Auction Date" required>
+                            <input type="date" class="form-control" name="startingdate" id="date" formControlName="Date" placeholder="Auction Date" required>
                         </div>
-                        <div class="error-msg" *ngIf="auctionDate.touched && auctionDate.hasError('required')">
+                        <div class="error-msg" *ngIf="Date.touched && Date.hasError('required')">
                             Starting Date is <b>required</b> !
+                        </div>
+                        <br>
+                        <label for="prodname">Choose Product</label>
+                        <div class="form-group">
+                            <select class="form-control" name="prodname" formControlName="product_id" required>
+                                <option *ngFor="let product of productsArray" [ngValue]="product.id">
+                                  {{ product.designation }}
+                                </option>
+                              </select>
+                        </div>
+                        <div class="error-msg" *ngIf="product_id.touched && product_id.hasError('required')">
+                            Product is <b>required</b> !
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -127,20 +149,39 @@
                 </div>
                 <form [formGroup]="auctionForm" (ngSubmit)="update()">
                     <div class="modal-body">
+                        <label for="auctionprice">Choose Auction Name</label>
+                        <div class="form-group first">
+                            <input type="text" class="form-control" name="auctionprice" id="price" formControlName="Name" placeholder="Auction Name" required>
+                            <div class="error-msg" *ngIf="Name.touched && Name.hasError('required')">
+                                Name is <b>required</b> !
+                            </div>
+                        </div>
+                        <br>
                         <label for="auctionprice">Auction Price</label>
                         <div class="form-group first">
-                            <input type="text" class="form-control" name="auctionprice" id="price" formControlName="price" placeholder="Auction price" required>
-                            <div class="error-msg" *ngIf="price.touched && price.hasError('required')">
+                            <input type="text" class="form-control" name="auctionprice" id="price" formControlName="Price" placeholder="Auction price" required>
+                            <div class="error-msg" *ngIf="Price.touched && Price.hasError('required')">
                                 Price is <b>required</b> !
                             </div>
                         </div>
                         <br>
                         <label for="startingdate">Publish Date</label>
                         <div class="form-group">
-                            <input type="date" class="form-control" name="startingdate" id="date" formControlName="auctionDate" placeholder="Auction Date" required>
+                            <input type="date" class="form-control" name="startingdate" id="date" formControlName="Date" placeholder="Auction Date" required>
                         </div>
-                        <div class="error-msg" *ngIf="auctionDate.touched && auctionDate.hasError('required')">
+                        <div class="error-msg" *ngIf="Date.touched && Date.hasError('required')">
                             Starting Date is <b>required</b> !
+                        </div>
+                        <label for="prodname">Choose Product</label>
+                        <div class="form-group">
+                            <select class="form-control" name="prodname" formControlName="product_id" required>
+                                <option *ngFor="let product of productsArray" [ngValue]="product.id">
+                                  {{ product.designation }}
+                                </option>
+                              </select>
+                        </div>
+                        <div class="error-msg" *ngIf="product_id.touched && product_id.hasError('required')">
+                            Product is <b>required</b> !
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -163,20 +204,39 @@
                 </div>
                 <form [formGroup]="re_auctionForm" (ngSubmit)="re_add()">
                     <div class="modal-body">
-                        <label for="auctiontitle">Choose Auction Title</label>
+                        <label for="auctionprice">Choose Auction Name</label>
                         <div class="form-group first">
-                            <input type="text" class="form-control" name="auctiontitle" id="title" formControlName="title" placeholder="Auction price" required>
-                            <div class="error-msg" *ngIf="title.touched && title.hasError('required')">
-                                Title is <b>required</b> !
+                            <input type="text" class="form-control" name="auctionprice" id="price" formControlName="Name" placeholder="Auction Name" required>
+                            <div class="error-msg" *ngIf="re_Name.touched && re_Name.hasError('required')">
+                                Name is <b>required</b> !
                             </div>
                         </div>
                         <br>
-                        <label for="startingdate">Choose Publish Date</label>
-                        <div class="form-group">
-                            <input type="date" class="form-control" name="startingdate" id="date" formControlName="re_auctionDate" placeholder="Auction Date" required>
+                        <label for="auctionprice">Auction Price</label>
+                        <div class="form-group first">
+                            <input type="number" class="form-control" name="auctionprice" id="price" formControlName="Price" placeholder="Auction price" required>
+                            <div class="error-msg" *ngIf="re_Price.touched && re_Price.hasError('required')">
+                                Price is <b>required</b> !
+                            </div>
                         </div>
-                        <div class="error-msg" *ngIf="re_auctionDate.touched && re_auctionDate.hasError('required')">
+                        <br>
+                        <label for="startingdate">Publish Date</label>
+                        <div class="form-group">
+                            <input type="date" class="form-control" name="startingdate" id="date" formControlName="Date" placeholder="Auction Date" required>
+                        </div>
+                        <div class="error-msg" *ngIf="re_Date.touched && re_Date.hasError('required')">
                             Starting Date is <b>required</b> !
+                        </div>
+                        <label for="prodname">Choose Product</label>
+                        <div class="form-group">
+                            <select class="form-control" name="prodname" formControlName="product_id" required>
+                                <option *ngFor="let product of productsArray" [ngValue]="product.id">
+                                  {{ product.designation }}
+                                </option>
+                              </select>
+                        </div>
+                        <div class="error-msg" *ngIf="re_product_id.touched && re_product_id.hasError('required')">
+                            Product is <b>required</b> !
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -199,20 +259,43 @@
                 </div>
                 <form [formGroup]="re_auctionForm" (ngSubmit)="re_update()">
                     <div class="modal-body">
-                        <label for="auctiontitle">Choose Auction Title</label>
-                        <div class="form-group first">
-                            <input type="text" class="form-control" name="auctiontitle" id="title" formControlName="title" placeholder="Auction price" required>
-                            <div class="error-msg" *ngIf="title.touched && title.hasError('required')">
-                                Title is <b>required</b> !
+                        <div class="modal-body">
+                            <input type="text" class="form-control" formControlName="id" hidden>
+
+                            <label for="auctionprice">Choose Auction Name</label>
+                            <div class="form-group first">
+                                <input type="text" class="form-control" name="auctionprice" id="price" formControlName="Name" placeholder="Auction Name" required>
+                                <div class="error-msg" *ngIf="re_Name.touched && re_Name.hasError('required')">
+                                    Name is <b>required</b> !
+                                </div>
                             </div>
-                        </div>
-                        <br>
-                        <label for="startingdate">Choose Publish Date</label>
+                            <br>
+                            <label for="auctionprice">Auction Price</label>
+                            <div class="form-group first">
+                                <input type="text" class="form-control" name="auctionprice" id="price" formControlName="Price" placeholder="Auction price" required>
+                                <div class="error-msg" *ngIf="re_Price.touched && re_Price.hasError('required')">
+                                    Price is <b>required</b> !
+                                </div>
+                            </div>
+                            <br>
+                            <label for="startingdate">Publish Date</label>
+                            <div class="form-group">
+                                <input type="date" class="form-control" name="startingdate" id="date" formControlName="Date" placeholder="Auction Date" required>
+                            </div>
+                            <div class="error-msg" *ngIf="re_Date.touched && re_Date.hasError('required')">
+                                Starting Date is <b>required</b> !
+                            </div>
+                            <label for="prodname">Choose Product</label>
                         <div class="form-group">
-                            <input type="date" class="form-control" name="startingdate" id="date" formControlName="re_auctionDate" placeholder="Auction Date" required>
+                            <select class="form-control" name="prodname" formControlName="product_id" required>
+                                <option *ngFor="let product of productsArray" [ngValue]="product.id">
+                                  {{ product.designation }}
+                                </option>
+                              </select>
                         </div>
-                        <div class="error-msg" *ngIf="re_auctionDate.touched && re_auctionDate.hasError('required')">
-                            Starting Date is <b>required</b> !
+                        <div class="error-msg" *ngIf="re_product_id.touched && re_product_id.hasError('required')">
+                            Product is <b>required</b> !
+                        </div>
                         </div>
                     </div>
                     <div class="modal-footer">

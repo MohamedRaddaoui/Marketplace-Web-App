@@ -48,7 +48,9 @@ params = new HttpParams({
   addtopck(id:any,ids:any){
     return this.httpclient.post(this.back_URL +`/usern/AddToPocket/${id}/${ids}`,null)
   }
-
+  updatepw(id:any,newUser:any){
+    return this.httpclient.post(this.back_URL +`/usern/updatePw/${id}/${newUser}`,null)
+  }
 
 
 }

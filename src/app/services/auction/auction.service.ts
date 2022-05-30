@@ -41,8 +41,8 @@ export class AuctionService {
  deleteAuction(id:any){
    return this.httpclient.delete(this.back_URL +`/api/auctions/${id}`)
  }
- updateAuction(newAuction:any, id:any){
-   return this.httpclient.patch(this.back_URL +`/api/auction/${id}`,newAuction)
+ updateAuction( id:any,newAuction:any){
+   return this.httpclient.put(this.back_URL +`/api/auctions/${id}`,newAuction)
  }
   getallR_auctions(){
    return this.httpclient.get(this.back_URL +'/api/reverse_auctions',{params :this.params})
@@ -51,13 +51,13 @@ export class AuctionService {
    return this.httpclient.get(this.back_URL +`/api/reverse_auctions/${id}`)
  }
  addR_auction (profil:any){
-   return this.httpclient.post(this.back_URL +'/api/addreverse_auctions',profil)
+   return this.httpclient.post(this.back_URL +'/api/reverse_auctions',profil)
  }
  deleteR_auction(id:any){
    return this.httpclient.delete(this.back_URL +`/api/reverse_auctions/${id}`)
  }
- updateR_auction(newUser:any, id:any){
-   return this.httpclient.patch(this.back_URL +`/api/reverse_auctions/${id}`,newUser)
+ updateR_auction( id:any,newUser:any){
+   return this.httpclient.put(this.back_URL +`/api/reverse_auctions/${id}`,newUser)
  }
 
 }

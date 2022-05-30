@@ -3,21 +3,19 @@
         <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Product Image</th>
-                <th scope="col">Product Name</th>
+                <th scope="col">Auction Name</th>
                 <th scope="col">Starting Price</th>
                 <th scope="col">Date</th>
-                <th scope="col">Options</th>
+                <th scope="col">Actions</th>
             </tr>
         </thead>
         <h3 *ngIf="!wishlist">You have Nothing In Your Wishlist!</h3>
         <tbody *ngIf="wishlist">
             <tr *ngFor="let wish of wishlist; let i = index">
                 <th scope="row">{{i}}</th>
-                <td><img src="{{wish.products.image}}" class="img-sm border rounded"></td>
-                <td>{{wish.products.designation}}</td>
-                <td>{{wish.price}}</td>
-                <td>{{wish.date}}</td>
+                <td>{{wish.Name}}</td>
+                <td>{{wish.Price}}</td>
+                <td>{{wish.Date}}</td>
                 <td>
                     <button class="btn btn-danger" (click)="deleteWish(wish.id,i)">Delete</button>
                 </td>

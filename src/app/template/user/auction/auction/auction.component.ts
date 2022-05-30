@@ -68,12 +68,13 @@ export class AuctionComponent implements OnInit {
     this.as.getUserByemail(user.username).subscribe((response) => {
       user = response
       this.ws.addToWishlist(user[0].id,aucId).subscribe((response)=>{
+        console.log(response);
         Swal.fire({
           icon: 'success',
           title: 'Your Auction has been saved',
           showConfirmButton: false,
           timer: 1500
-        })      
+        })
       })
     })
   }

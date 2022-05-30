@@ -77,6 +77,7 @@ export class ReverseauctionComponent implements OnInit {
       showConfirmButton: false,
       timer: 1500
     })
+    this.constructor()    
   })
   }
   getOfferData(offer : any){

@@ -19,12 +19,18 @@ export class MyauctionsComponent implements OnInit {
   user : any
   constructor(private aucs:AuctionService, private us:UserService, private aus:UserAuthService, private fb:FormBuilder) {
     this.auctionForm = fb.group({
-      price: ['', Validators.required],
-      auctionDate: ['', Validators.required]
+      id:[''],
+      Price: ['', Validators.required],
+      Name: ['', Validators.required],
+      Date: ['', Validators.required],
+      product_id : ['', Validators.required]
     })
     this.re_auctionForm = fb.group({
-      title: ['', Validators.required],
-      re_auctionDate: ['', Validators.required]
+      id:[''],
+      Price: ['', Validators.required],
+      Name: ['', Validators.required],
+      Date: ['', Validators.required],
+      product_id : ['', Validators.required]
     })
 
     this.user = this.aus.getUserFromToken(this.aus.getToken());
@@ -34,34 +40,24 @@ export class MyauctionsComponent implements OnInit {
       this.user=this.user[0]
       this.auctionArray=this.user.Auctions
       this.reverseAuctionArray=this.user.ReverseAuction
-
-      console.log(this.reverseAuctionArray)
-
+      this.productsArray=this.user.products
       this.auctionArray.forEach((auction : any) => {
-        console.log(auction)
-
         auction.Date = new Date(auction.Date.timestamp* 1000).toISOString().slice(0, 10);
-
-        console.log(auction.Date)
-
       })
 
 
       this.reverseAuctionArray.forEach((rauction : any) => {
-        console.log( rauction.date)
-
         rauction.Date = new Date(rauction.Date.timestamp* 1000).toISOString().slice(0, 10);
-
       })
       this.productsArray=this.user.products
-      console.log(this.user)
     } )
 
 
   }
 
     add(){
-      this.auctionForm.value.usern_id = this.user.id
+      this.auctionForm.value.usern ="api/userns/"+ this.user.id
+      delete this.auctionForm.value.id
       this.aucs.addAuction(this.auctionForm.value).subscribe(data => {
         Swal.fire({
           icon: 'success',
@@ -69,10 +65,12 @@ export class MyauctionsComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         })
+        this.constructor()    
       })
     }
     re_add(){
-      this.auctionForm.value.usern_id = this.user.id
+      this.re_auctionForm.value.usern ="api/userns/"+ this.user.id
+      delete this.re_auctionForm.value.id
       this.aucs.addR_auction(this.re_auctionForm.value).subscribe(data => {
         Swal.fire({
           icon: 'success',
@@ -80,38 +78,45 @@ export class MyauctionsComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         })
+        this.constructor()    
       })
     }
     update(){
-      this.aucs.updateAuction(this.user.id,this.auctionForm.value).subscribe(data => {
+      this.aucs.updateAuction(this.auctionForm.value["id"],this.auctionForm.value).subscribe(data => {
         Swal.fire({
         icon: 'success',
         title: 'Auction has been updated',
         showConfirmButton: false,
         timer: 1500
       })
+      this.constructor()    
     })
     }
     re_update(){
-      this.aucs.updateR_auction(this.user.id,this.re_auctionForm.value).subscribe(data => {
+      this.aucs.updateR_auction(this.re_auctionForm.value.id,this.re_auctionForm.value).subscribe(data => {
         Swal.fire({
           icon: 'success',
           title: 'Reverse auction has been updated',
           showConfirmButton: false,
           timer: 1500
         })
+        this.constructor()    
       })
     }
     getAuctionData(auction : any){
       this.auctionForm.setValue({
-        price:  auction.price || "",
-        auctionDate: auction.date  || ""
+        id:auction.id || "",
+        Name:auction.Name || "",
+        Price:  auction.Price || "",
+        Date: auction.Date  || ""
       });
     }
     getRe_AuctionData(auction : any){
       this.re_auctionForm.setValue({
-        price:  auction.price || "",
-        re_auctionDate: auction.date  || ""
+        id:auction.id || "",
+        Name:auction.Name || "",
+        Price:  auction.Price || "",
+        Date: auction.Date  || ""
       });
     }
     deleteAuction(id:any, index:any){
@@ -123,6 +128,7 @@ export class MyauctionsComponent implements OnInit {
           timer: 1500
         })
         this.auctionArray.splice(index, 1)
+        this.constructor()    
       })
     }
     deleteRe_Auction(id:any, index:any){
@@ -132,48 +138,62 @@ export class MyauctionsComponent implements OnInit {
           title: 'Reverse auction has been deleted',
           showConfirmButton: false,
           timer: 1500
-        })     
+        })
         this.reverseAuctionArray.splice(index, 1)
+        this.constructor()    
       })
     }
     stopR_auction(auction : any){
       //Fonction mtaa Stop
     }
-    get price(){
-      return this.auctionForm.get('price');
+    get Price(){
+      return this.auctionForm.get('Price');
     }
-    set price(value) {
-      this.price = value;
+    set Price(value) {
+      this.Price = value;
     }
-    get auctionDate(){
-      return this.auctionForm.get('auctionDate');
+    get Date(){
+      return this.auctionForm.get('Date');
     }
-    set auctionDate(value) {
-      this.auctionDate = value;
+    set Date(value) {
+      this.Date = value;
     }
-    get productname(){
-      return this.auctionForm.get('productname');
+    get Name(){
+      return this.auctionForm.get('Name');
     }
-    set productname(value) {
-      this.productname = value;
+    set Name(value) {
+      this.Name = value;
     }
-    get title(){
-      return this.re_auctionForm.get('title');
+    get product_id(){
+      return this.auctionForm.get('product_id');
     }
-    set title(value) {
-      this.title = value;
+    set product_id(value) {
+      this.product_id = value;
     }
-    get re_auctionDate(){
-      return this.re_auctionForm.get('re_auctionDate');
+
+    get re_Date(){
+      return this.re_auctionForm.get('Date');
     }
-    set re_auctionDate(value) {
-      this.re_auctionDate = value;
+    set re_Date(value) {
+      this.re_Date = value;
     }
-    get re_productname(){
-      return this.re_auctionForm.get('re_productname');
+    get re_Name(){
+      return this.re_auctionForm.get('Name');
     }
-    set re_productname(value) {
-      this.re_productname = value;
+    set re_Name(value) {
+      this.re_Name = value;
+    }
+    get re_Price(){
+      return this.re_auctionForm.get('Price');
+    }
+    set re_Price(value) {
+      this.re_Price = value;
+    }
+    get re_product_id(){
+      return this.re_auctionForm.get('product_id');
+    }
+    set re_product_id(value) {
+      this.re_product_id = value;
     }
     ngOnInit(): void {
 

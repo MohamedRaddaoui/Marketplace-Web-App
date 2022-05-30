@@ -22,7 +22,6 @@ export class MywishlistComponent implements OnInit {
       console.log( this.user)
       this.wishlist= this.user.wishlist.auctions
       this.wishlist.forEach((auction : any) => {
-        auction.products.image=	this.back_URL+'/uploads/images/products/'+ auction.products.image;
         auction.Date = new Date(auction.Date.timestamp * 1000).toISOString().slice(0, 10);
       })  })
    }
@@ -38,6 +37,7 @@ export class MywishlistComponent implements OnInit {
       showConfirmButton: false,
       timer: 1500
     })
+    this.constructor()    
   })
   }
 }

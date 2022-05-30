@@ -67,7 +67,8 @@ export class ProfileComponent implements OnInit {
         title: 'User has been updated',
         showConfirmButton: false,
         timer: 1500
-      })      
+      })
+      this.constructor()    
          })
         });
   }

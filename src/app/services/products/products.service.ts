@@ -24,12 +24,12 @@ export class ProductsService {
     return this.httpclient.get(this.back_URL +`/usern/Findprod/${id}`)
   }
   addProduct (profil:any){
-    return this.httpclient.post(this.back_URL +'/api/produts',profil)
+    return this.httpclient.post(this.back_URL +'/api/products',profil)
   }
   deleteProduct(id:any){
     return this.httpclient.delete(this.back_URL +`/api/products/${id}`)
   }
   updateProduct(newProduct:any, id:any){
-    return this.httpclient.patch(this.back_URL +`/api/products/${id}`,newProduct)
+    return this.httpclient.put(this.back_URL +`/api/products/${id}`,newProduct)
   }
 }
