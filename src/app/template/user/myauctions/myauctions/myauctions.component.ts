@@ -32,27 +32,7 @@ export class MyauctionsComponent implements OnInit {
       Date: ['', Validators.required],
       product_id : ['', Validators.required]
     })
-
-    this.user = this.aus.getUserFromToken(this.aus.getToken());
-    this.us.getUserByemail(this.user.username).subscribe(data =>{
-
-      this.user=data
-      this.user=this.user[0]
-      this.auctionArray=this.user.Auctions
-      this.reverseAuctionArray=this.user.ReverseAuction
-      this.productsArray=this.user.products
-      this.auctionArray.forEach((auction : any) => {
-        auction.Date = new Date(auction.Date.timestamp* 1000).toISOString().slice(0, 10);
-      })
-
-
-      this.reverseAuctionArray.forEach((rauction : any) => {
-        rauction.Date = new Date(rauction.Date.timestamp* 1000).toISOString().slice(0, 10);
-      })
-      this.productsArray=this.user.products
-    } )
-
-
+    this.refreshData()
   }
 
     add(){
@@ -65,7 +45,7 @@ export class MyauctionsComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         })
-        this.constructor()    
+        this.refreshData()
       })
     }
     re_add(){
@@ -78,7 +58,7 @@ export class MyauctionsComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         })
-        this.constructor()    
+        this.refreshData()
       })
     }
     update(){
@@ -89,7 +69,7 @@ export class MyauctionsComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       })
-      this.constructor()    
+      this.refreshData()
     })
     }
     re_update(){
@@ -100,7 +80,7 @@ export class MyauctionsComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         })
-        this.constructor()    
+        this.refreshData()
       })
     }
     getAuctionData(auction : any){
@@ -128,7 +108,7 @@ export class MyauctionsComponent implements OnInit {
           timer: 1500
         })
         this.auctionArray.splice(index, 1)
-        this.constructor()    
+        this.refreshData()
       })
     }
     deleteRe_Auction(id:any, index:any){
@@ -140,11 +120,37 @@ export class MyauctionsComponent implements OnInit {
           timer: 1500
         })
         this.reverseAuctionArray.splice(index, 1)
-        this.constructor()    
-      })
+        this.refreshData()      })
     }
-    stopR_auction(auction : any){
-      //Fonction mtaa Stop
+    stopR_auction(id : any){
+      this.aucs.StopR_auction(id.id).subscribe(() => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Reverse auction has been Stoped',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        this.refreshData()
+      })    
+    }
+    refreshData(){
+      
+    this.user = this.aus.getUserFromToken(this.aus.getToken());
+    this.us.getUserByemail(this.user.username).subscribe(data =>{
+
+      this.user=data
+      this.user=this.user[0]
+      this.auctionArray=this.user.Auctions
+      this.reverseAuctionArray=this.user.ReverseAuction
+      this.productsArray=this.user.products
+      this.auctionArray.forEach((auction : any) => {
+        auction.Date = new Date(auction.Date.timestamp* 1000).toISOString().slice(0, 10);
+      })
+      this.reverseAuctionArray.forEach((rauction : any) => {
+        rauction.Date = new Date(rauction.Date.timestamp* 1000).toISOString().slice(0, 10);
+      })
+      this.productsArray=this.user.products
+    } )
     }
     get Price(){
       return this.auctionForm.get('Price');

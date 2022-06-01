@@ -58,6 +58,15 @@ export class AuctionService {
  }
  updateR_auction( id:any,newUser:any){
    return this.httpclient.put(this.back_URL +`/api/reverse_auctions/${id}`,newUser)
+ } 
+ StopR_auction( id:any){
+   return this.httpclient.post(this.back_URL +`/usern/endrauc/${id}`,null)
  }
-
+ auctionPrice(user_id:any,room_id : any, ammount:any){
+   return this.httpclient.post(this.back_URL +`/usern/Auctionromm/${user_id}/${room_id}/${ammount}`,null)
+ }
+ leaveRoom(user_id:any,room_id : any){
+   return this.httpclient.post(this.back_URL +`/usern/leaveAuctionromm/${user_id}/${room_id}/`,null)
+ }
+ 
 }

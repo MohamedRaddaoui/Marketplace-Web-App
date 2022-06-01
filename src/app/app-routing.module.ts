@@ -13,7 +13,7 @@ const routes: Routes = [
     {path: 'auction',loadChildren:()=>import('./template/user/auction/auction.module').then(m=>m.AuctionModule)},
     {path: 'reverse-auction',loadChildren:()=>import('./template/user/reverse/reverse.module').then(m=>m.ReverseModule)},
     {path: 'reverse-auction/:id',loadChildren:()=>import('./template/user/reversepage/reverseauction/reverseauction.module').then(m=>m.ReverseauctionModule)},
-    {path: 'auction-room/:id',loadChildren:()=>import('./template/user/auctionroom/auctionroom/auctionroom.module').then(m=>m.AuctionroomModule) /*,canActivate : [SubscriberGuard] */},
+    {path: 'auction-room/:auction_id/:product_id',loadChildren:()=>import('./template/user/auctionroom/auctionroom/auctionroom.module').then(m=>m.AuctionroomModule) /*,canActivate : [SubscriberGuard] */},
     {path: 'subscription',loadChildren:()=>import('./template/user/subscription/subscription.module').then(m=>m.SubscriptionModule)},
     {path: 'myprofile',loadChildren:()=>import('./template/user/myprofile/myprofile.module').then(m=>m.MyprofileModule)/*,canActivate : [UserGuard]*/},
     {path: 'purchase-subscription',loadChildren:()=>import('./template/user/purchase-sub/purchase-sub.module').then(m=>m.PurchaseSubModule)/*,canActivate : [UserGuard]*/}

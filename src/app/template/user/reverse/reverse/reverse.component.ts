@@ -35,17 +35,20 @@ export class ReverseComponent implements OnInit {
           })
         }
       })
-      console.log(this.auctionsArray)
     });
     this.aucs.getallrAuctions().subscribe(response => {
-      this.auctionsArray = response
-      console.log(response)
+      let res:any=response
+
+      if(res.code==0){
+
+        this.auctionsArray = response
       this.auctionsArray.forEach((auction : any) => {
           auction.image=	this.back_URL+'/uploads/images/products/'+auction.products.image
 
 
-      })
-    });
+      })}
+    });      console.log( this.auctionsArray)
+
    }
   ngOnInit(): void {
   }

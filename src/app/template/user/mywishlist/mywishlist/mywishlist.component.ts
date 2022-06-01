@@ -15,15 +15,7 @@ export class MywishlistComponent implements OnInit {
   back_URL = environment.URL_Api
   user:any
   constructor(private ws:WishlistService,private us:UserService, private aus:UserAuthService) {
-     this.user = this.aus.getUserFromToken(this.aus.getToken());
-    this.us.getUserByemail( this.user.username).subscribe((data) => {
-      this.user = data;
-      this.user=  this.user[0]
-      console.log( this.user)
-      this.wishlist= this.user.wishlist.auctions
-      this.wishlist.forEach((auction : any) => {
-        auction.Date = new Date(auction.Date.timestamp * 1000).toISOString().slice(0, 10);
-      })  })
+    this.refreshData()
    }
 
   ngOnInit(): void {
@@ -37,7 +29,19 @@ export class MywishlistComponent implements OnInit {
       showConfirmButton: false,
       timer: 1500
     })
-    this.constructor()    
+    this.refreshData()    
   })
+  }
+  refreshData(){
+    this.user = this.aus.getUserFromToken(this.aus.getToken());
+    this.us.getUserByemail( this.user.username).subscribe((data) => {
+      this.user = data;
+      this.user=  this.user[0]
+      console.log(this.user)
+      this.wishlist= this.user.wishlist.auctions
+      this.wishlist.forEach((auction : any) => {
+        auction.Date = new Date(auction.Date.timestamp * 1000).toISOString().slice(0, 10);
+      })  
+    })
   }
 }

@@ -79,7 +79,7 @@
                     </div>
                     <!-- =================== COMPONENT REVIEW .// ================== -->
                     <!-- =================== COMPONENT REVIEW ====================== -->
-                    <div class="card">
+                    <div *ngIf="isSub" class="card">
                         <div class="card-body">
                             <h2 class="card-title">Offer to auctioneer</h2>
                             <form [formGroup]="offerForm" (ngSubmit)="addOffer()">

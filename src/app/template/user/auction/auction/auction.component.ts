@@ -47,19 +47,8 @@ export class AuctionComponent implements OnInit {
           })
         }
       })
-      console.log(this.auctionsArray)
     });
-    this.aucs.getallAuctions().subscribe(response => {
-      this.auctionsArray = response
-      console.log(response)
-      this.auctionsArray.forEach((auction : any) => {
-        this.prs.getProductByAuctionId(auction.id).subscribe((response)=>{
-          auction.product = response;
-          auction.image=	this.back_URL+'/uploads/images/products/'+auction.product.image;
-        })
-        auction.Date = new Date(auction.Date.timestamp * 1000).toISOString().slice(0, 10);
-      })
-    });
+    this.refreshData();
    }
   ngOnInit(): void {
   }
@@ -78,13 +67,29 @@ export class AuctionComponent implements OnInit {
       })
     })
   }
+  refreshData(){
+    this.aucs.getallAuctions().subscribe(response => {
+      this.auctionsArray = response
+      console.log(response)
+      this.auctionsArray.forEach((auction : any) => {
+        this.prs.getProductByAuctionId(auction.id).subscribe((response)=>{
+          auction.product = response;
+          auction.image=	this.back_URL+'/uploads/images/products/'+auction.product.image;
+        })
+        auction.Date = new Date(auction.Date.timestamp * 1000).toISOString().slice(0, 10);
+      })
+    });
+  }
   changefilter(type : any){
     if(type == "prochain"){
-      this.auctionsArray = this.auctionsArray.filter((auction : any) => auction.etat == "prochain")
+      this.refreshData()
+      this.auctionsArray.filter((auction : any) => auction.etat == "prochain")
     }else if(type == "encours"){
-      this.auctionsArray = this.auctionsArray.filter((auction : any) => auction.etat == "encours")
+      this.refreshData()
+      this.auctionsArray.filter((auction : any) => auction.etat == "encours")
     }else if (type == "terminer"){
-      this.auctionsArray = this.auctionsArray.filter((auction : any) => auction.etat == "terminer")
+      this.refreshData()
+      this.auctionsArray.filter((auction : any) => auction.etat == "terminer")
     }
   }
 }

@@ -27,23 +27,7 @@ export class ProfileComponent implements OnInit {
       region : ['',Validators.required],
       birthDate : ['',[Validators.required]],
     });
-    let user = this.aus.getUserFromToken(this.aus.getToken());
-    this.us.getUserByemail(user.username).subscribe((data) => {
-      user = data;
-      this.useremail=user[0].email || ""
-      this.image=this.back_URL+'/uploads/images/products/'+user[0].image;
-      const date = new Date(user[0].birthDate.timestamp* 1000).toISOString().slice(0, 10);
-      this.editForm.setValue({
-        FirstName:  user[0].FirstName || "",
-        LastName: user[0].LastName  || "",
-        email: user[0].email  || "",
-        mobile : user[0].Number  || "",
-        country : user[0].Country  || "",
-        region : user[0].Region  || "",
-        birthDate: date  || "",
-        image : user[0].image
-        });
-    })
+    this.refreshUserData();
   }
 
   edit(){
@@ -68,13 +52,32 @@ export class ProfileComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       })
-      this.constructor()    
          })
         });
+        this.refreshUserData();
   }
   onFileSelected(event : any) {
     this.selectedFile = <File>event.target.files[0];
     console.log(this.selectedFile)
+  }
+  refreshUserData(){
+    let user = this.aus.getUserFromToken(this.aus.getToken());
+    this.us.getUserByemail(user.username).subscribe((data) => {
+      user = data;
+      this.useremail=user[0].email || ""
+      this.image=this.back_URL+'/uploads/images/products/'+user[0].image;
+      const date = new Date(user[0].birthDate.timestamp* 1000).toISOString().slice(0, 10);
+      this.editForm.setValue({
+        FirstName:  user[0].FirstName || "",
+        LastName: user[0].LastName  || "",
+        email: user[0].email  || "",
+        mobile : user[0].Number  || "",
+        country : user[0].Country  || "",
+        region : user[0].Region  || "",
+        birthDate: date  || "",
+        image : user[0].image
+        });
+    })
   }
   get FirstName(){
     return this.editForm.get('FirstName');

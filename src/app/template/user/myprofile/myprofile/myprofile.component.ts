@@ -16,7 +16,8 @@ export class MyprofileComponent implements OnInit {
     this.as.getUserByemail(user.username).subscribe((data) => {
       user = data;
       user = user[0]
-      this.isSub = user.subscription_id	|| null
+      console.log(user)
+      this.isSub = user.Subscription	|| null
     })
 
   }

@@ -17,15 +17,10 @@ export class MypocketComponent implements OnInit {
   pocketForm : any
 
   constructor(private pcks:PocketService,private us:UserService, private aus:UserAuthService, private fb:FormBuilder,private route:Router) {
-    let token : any = this.aus.getToken();
-    let user : any=this.aus.getUserFromToken(token);
-    this.us.getUserByemail(user.username).subscribe((data) => {
-      user = data;
-    this.currentBalance = user[0].pocket
-    });
       this.pocketForm = fb.group({
       balance: ['', Validators.required]
     })
+    this.refreshData()
   }
 
   ngOnInit(): void {
@@ -39,6 +34,14 @@ export class MypocketComponent implements OnInit {
       timer: 3000
     })     
     this.route.navigate(['/purchase-subscription'],{queryParams:{Ammount:this.balance.value}})
+  }
+  refreshData(){
+    let token : any = this.aus.getToken();
+    let user : any=this.aus.getUserFromToken(token);
+    this.us.getUserByemail(user.username).subscribe((data) => {
+      user = data;
+    this.currentBalance = user[0].pocket
+    });
   }
   get balance(){
     return this.pocketForm.get('balance');

@@ -38,11 +38,17 @@
 
         <div class="row" *ngIf="auctionsArray">
             <div class="form-outline">
-                <div class="container d-flex">
-                    <a (click)='changefilter("prochain")'>Prochain</a>
-                    <a (click)='changefilter("encours")'>En cours</a>
-                    <a (click)='changefilter("terminer")'>Terminé</a>
-                </div>
+                <header class="main-header fixed-top auto-hide bg-white"> 
+                    <nav class="navbar navbar-light navbar-expand justify-content-between flex-column flex-md-row"> 
+                        <div class="navbar-top-wrap"> 
+                            <ul class="nav nav-header"> 
+                                <li class="nav-item" (click)='changefilter("prochain")'> <a class="nav-link" >Upcoming</a> </li> 
+                                <li class="nav-item" (click)='changefilter("encours")'> <a class="nav-link" >In progress</a> </li> 
+                                <li class="nav-item" (click)='changefilter("terminer")'> <a class="nav-link" >Finished</a> </li> 
+                            </ul> 
+                        </div> 
+                    </nav>
+                </header>
             </div>
             <div class="col-lg-3 col-sm-6 col-12 cont" *ngFor="let auction of auctionsArray">
                 <div class="card card-product-grid">
@@ -62,7 +68,7 @@
                         <div class="price-wrap" *ngIf="auction.etat == 'prochain'"> <strong class="price">Starting Date : </strong> {{auction.Date | date}}
                         </div>
                         <!-- link-wrap.// -->
-                        <a routerLink="/auction-room/{{auction.id}}" *ngIf="auction.etat == 'encours'" class="btn btn-primary stretched-link">Participer</a>
+                        <a routerLink="/auction-room/{{auction.id}}/{{auction.products.id}}" *ngIf="auction.etat == 'encours'" class="btn btn-primary stretched-link">Participer</a>
                     </div>
                 </div>
                 <!-- card // -->

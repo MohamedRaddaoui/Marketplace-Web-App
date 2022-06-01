@@ -17,6 +17,7 @@
                     <th scope="col">Auction Name</th>
                     <th scope="col">Starting Price</th>
                     <th scope="col">Date</th>
+                    <th scope="col">Status</th>
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
@@ -27,6 +28,7 @@
                     <td>{{auction.Name}}</td>
                     <td>{{auction.Price}}</td>
                     <td>{{auction.Date}}</td>
+                    <td>{{auction.etat}}</td>
                     <td>
                         <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editauctionModal" (click)="getAuctionData(auction)">Edit</button>
                         <button class="btn btn-danger" (click)="deleteAuction(auction.id,i)">Delete</button>
@@ -50,6 +52,7 @@
                     <th scope="col">Auction Name</th>
                     <th scope="col">Starting Price</th>
                     <th scope="col">Date</th>
+                    <th scope="col">Satus</th>
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
@@ -60,6 +63,7 @@
                     <td>{{re_auction.Name}}</td>
                     <td>{{re_auction.Price}}</td>
                     <td>{{re_auction.Date}}</td>
+                    <td>{{re_auction.etat}}</td>
                     <td>
                         <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editreverseModal" (click)="getRe_AuctionData(re_auction)">Edit</button>
                         <button class="btn btn-info" (click)="stopR_auction(re_auction)">Stop</button>
@@ -286,16 +290,16 @@
                                 Starting Date is <b>required</b> !
                             </div>
                             <label for="prodname">Choose Product</label>
-                        <div class="form-group">
-                            <select class="form-control" name="prodname" formControlName="product_id" required>
+                            <div class="form-group">
+                                <select class="form-control" name="prodname" formControlName="product_id" required>
                                 <option *ngFor="let product of productsArray" [ngValue]="product.id">
                                   {{ product.designation }}
                                 </option>
                               </select>
-                        </div>
-                        <div class="error-msg" *ngIf="re_product_id.touched && re_product_id.hasError('required')">
-                            Product is <b>required</b> !
-                        </div>
+                            </div>
+                            <div class="error-msg" *ngIf="re_product_id.touched && re_product_id.hasError('required')">
+                                Product is <b>required</b> !
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">

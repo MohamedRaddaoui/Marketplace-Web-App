@@ -23,11 +23,9 @@ export class ReverseauctionComponent implements OnInit {
     back_URL = environment.URL_Api
   offerFormUpdate: any;
   offerId: any;
-
+  isSub : any
 
   constructor(public aus:UserAuthService,private as:UserService ,private raucs:AuctionService,private route:ActivatedRoute,private ofs:OffersService,private ps:ProductsService, private fb:FormBuilder) {
-
-
     this.route.params.subscribe((params) =>
     {
       this.raucs.getR_auction(params['id']).subscribe((data) =>{
@@ -41,12 +39,12 @@ export class ReverseauctionComponent implements OnInit {
               this.as.getUser( this.offersArray[i].user.slice(this.offersArray[i].user.lastIndexOf('/')+1,this.offersArray[i].user.length)).subscribe((response) => {
                 this.offersArray[i].user=response
                 this.offersArray[i].user.image = 	this.back_URL+'/uploads/images/products/'+this.offersArray[i].user.image;
-            })
+                this.isSub = this.offersArray[i].user.Subscription || null
+              })
           })
         })
         this.reverseauction.products.image=	this.back_URL+'/uploads/images/products/'+   this.reverseauction.products.image;
         })
-        console.log(this.reverseauction)
       })
     })
     this.offerForm = fb.group({
@@ -77,7 +75,7 @@ export class ReverseauctionComponent implements OnInit {
       showConfirmButton: false,
       timer: 1500
     })
-    this.constructor()    
+    this.refreshData()
   })
   }
   getOfferData(offer : any){
@@ -86,6 +84,17 @@ export class ReverseauctionComponent implements OnInit {
       description : offer.description  || ""
     })
     this.offerId = offer.id
+  }
+  refreshData(){
+    this.reverseauction.offers.forEach((offer: any,i:any)=> {
+      this.ofs.getOffer(offer.slice(offer.lastIndexOf('/')+1,offer.length)).subscribe((response) => {
+        this.offersArray.push(response) ;
+        this.as.getUser( this.offersArray[i].user.slice(this.offersArray[i].user.lastIndexOf('/')+1,this.offersArray[i].user.length)).subscribe((response) => {
+          this.offersArray[i].user=response
+          this.offersArray[i].user.image = 	this.back_URL+'/uploads/images/products/'+this.offersArray[i].user.image;
+        })
+    })
+  })
   }
   updateOffer(){
     this.ofs.updateOffer(this.offerId,this.offerFormUpdate.value).subscribe((response) => {
