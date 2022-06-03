@@ -27,30 +27,25 @@
                 <!-- form-check end.// -->
             </div>
         </div>
-        <div class="loading" [ngClass]="{ hide : auctionsArray != null}">
+        <div class="loading" [ngClass]="{ hide : auctionsArray1 != null}">
             <mat-icon>loop</mat-icon>
             <h2>Loading Auctions...</h2>
         </div>
-        <div class="loading" [ngClass]="{ hide : !(auctionsArray != null && auctionsArray.length == 0)}">
+        <div class="loading" [ngClass]="{ hide : !(auctionsArray1 != null && auctionsArray1.length == 0)}">
             <mat-icon>not_interested</mat-icon>
             <h2>No Auctions Found</h2>
         </div>
 
         <div class="row" *ngIf="auctionsArray">
             <div class="form-outline">
-                <header class="main-header fixed-top auto-hide bg-white"> 
-                    <nav class="navbar navbar-light navbar-expand justify-content-between flex-column flex-md-row"> 
-                        <div class="navbar-top-wrap"> 
-                            <ul class="nav nav-header"> 
-                                <li class="nav-item" (click)='changefilter("prochain")'> <a class="nav-link" >Upcoming</a> </li> 
-                                <li class="nav-item" (click)='changefilter("encours")'> <a class="nav-link" >In progress</a> </li> 
-                                <li class="nav-item" (click)='changefilter("terminer")'> <a class="nav-link" >Finished</a> </li> 
-                            </ul> 
-                        </div> 
-                    </nav>
-                </header>
+                <ul class="nav nav-header">
+                    <li class="nav-item" (click)='changefilter("prochain")'> <a class="nav-link">Upcoming</a> </li>
+                    <li class="nav-item" (click)='changefilter("encours")'> <a class="nav-link">In progress</a> </li>
+                    <li class="nav-item" (click)='changefilter("terminer")'> <a class="nav-link">Finished</a> </li>
+                </ul>
+
             </div>
-            <div class="col-lg-3 col-sm-6 col-12 cont" *ngFor="let auction of auctionsArray">
+            <div class="col-lg-3 col-sm-6 col-12 cont" *ngFor="let auction of auctionsArray1">
                 <div class="card card-product-grid">
                     <div class="img-wrap">
                         <span class="topbar">

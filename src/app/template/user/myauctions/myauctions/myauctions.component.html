@@ -25,9 +25,9 @@
             <tbody *ngIf="auctionArray">
                 <tr *ngFor="let auction of auctionArray; let i = index">
                     <th scope="row">{{i}}</th>
-                    <td>{{auction.Name}}</td>
-                    <td>{{auction.Price}}</td>
-                    <td>{{auction.Date}}</td>
+                    <td>{{auction.name}}</td>
+                    <td>{{auction.price}}</td>
+                    <td>{{auction.date}}</td>
                     <td>{{auction.etat}}</td>
                     <td>
                         <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editauctionModal" (click)="getAuctionData(auction)">Edit</button>
@@ -132,6 +132,30 @@
                         <div class="error-msg" *ngIf="product_id.touched && product_id.hasError('required')">
                             Product is <b>required</b> !
                         </div>
+                        <br>
+                        <label for="categoryname">Choose Category</label>
+                        <div class="form-group">
+                            <select class="form-control" name="categoryname" formControlName="category_id" required>
+                                <option *ngFor="let category of categoryArray" [ngValue]="category.id">
+                                  {{ category.designation }}
+                                </option>
+                              </select>
+                        </div>
+                        <div class="error-msg" *ngIf="category_id.touched && category_id.hasError('required')">
+                            Category is <b>required</b> !
+                        </div>
+                        <br>
+                        <label for="categoryname">Choose SubCategory</label>
+                        <div class="form-group">
+                            <select class="form-control" name="categoryname" formControlName="subcategory_id" required>
+                                <option *ngFor="let subcategory of subCategoryArray" [ngValue]="subcategory.id">
+                                  {{ subcategory.designation }}
+                                </option>
+                              </select>
+                        </div>
+                        <div class="error-msg" *ngIf="product_id.touched && product_id.hasError('required')">
+                            SubCategory is <b>required</b> !
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -187,6 +211,30 @@
                         <div class="error-msg" *ngIf="product_id.touched && product_id.hasError('required')">
                             Product is <b>required</b> !
                         </div>
+                        <br>
+                        <label for="categoryname">Choose Category</label>
+                        <div class="form-group">
+                            <select class="form-control" name="categoryname" formControlName="category_id" required>
+                                <option *ngFor="let category of categoryArray" [ngValue]="category.id">
+                                  {{ category.designation }}
+                                </option>
+                              </select>
+                        </div>
+                        <div class="error-msg" *ngIf="category_id.touched && category_id.hasError('required')">
+                            Category is <b>required</b> !
+                        </div>
+                        <br>
+                        <label for="categoryname">Choose SubCategory</label>
+                        <div class="form-group">
+                            <select class="form-control" name="categoryname" formControlName="subcategory_id" required>
+                                <option *ngFor="let subcategory of subCategoryArray" [ngValue]="subcategory.id">
+                                  {{ subcategory.designation }}
+                                </option>
+                              </select>
+                        </div>
+                        <div class="error-msg" *ngIf="subcategory_id.touched && subcategory_id.hasError('required')">
+                            SubCategory is <b>required</b> !
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -241,6 +289,30 @@
                         </div>
                         <div class="error-msg" *ngIf="re_product_id.touched && re_product_id.hasError('required')">
                             Product is <b>required</b> !
+                        </div>
+                        <br>
+                        <label for="categoryname">Choose Category</label>
+                        <div class="form-group">
+                            <select class="form-control" name="categoryname" formControlName="category_id" required>
+                                <option *ngFor="let category of categoryArray" [ngValue]="category.id">
+                                  {{ category.designation }}
+                                </option>
+                              </select>
+                        </div>
+                        <div class="error-msg" *ngIf="re_category_id.touched && re_category_id.hasError('required')">
+                            Category is <b>required</b> !
+                        </div>
+                        <br>
+                        <label for="categoryname">Choose SubCategory</label>
+                        <div class="form-group">
+                            <select class="form-control" name="categoryname" formControlName="subcategory_id" required>
+                                <option *ngFor="let subcategory of subCategoryArray" [ngValue]="subcategory.id">
+                                  {{ subcategory.designation }}
+                                </option>
+                              </select>
+                        </div>
+                        <div class="error-msg" *ngIf="re_subcategory_id.touched && re_subcategory_id.hasError('required')">
+                            SubCategory is <b>required</b> !
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -299,6 +371,30 @@
                             </div>
                             <div class="error-msg" *ngIf="re_product_id.touched && re_product_id.hasError('required')">
                                 Product is <b>required</b> !
+                            </div>
+                            <br>
+                            <label for="categoryname">Choose Category</label>
+                            <div class="form-group">
+                                <select class="form-control" name="categoryname" formControlName="category_id" required>
+                                    <option *ngFor="let category of categoryArray" [ngValue]="category.id">
+                                      {{ category.designation }}
+                                    </option>
+                                  </select>
+                            </div>
+                            <div class="error-msg" *ngIf="re_category_id.touched && re_category_id.hasError('required')">
+                                Category is <b>required</b> !
+                            </div>
+                            <br>
+                            <label for="categoryname">Choose SubCategory</label>
+                            <div class="form-group">
+                                <select class="form-control" name="categoryname" formControlName="subcategory_id" required>
+                                    <option *ngFor="let subcategory of subCategoryArray" [ngValue]="subcategory.id">
+                                      {{ subcategory.designation }}
+                                    </option>
+                                  </select>
+                            </div>
+                            <div class="error-msg" *ngIf="re_subcategory_id.touched && re_subcategory_id.hasError('required')">
+                                SubCategory is <b>required</b> !
                             </div>
                         </div>
                     </div>

@@ -33,7 +33,8 @@ this.user = user[0];
   }
   updatepw(){
       this.user.plainpasssword = this.newpassword
-      this.us.updatepw(this.user,this.newpassword).subscribe(() => {
+
+      this.us.updatepw(this.user.id,this.pwdForm.value.newpassword).subscribe(() => {
         Swal.fire({
           icon: 'success',
           title: 'Password has been changed',

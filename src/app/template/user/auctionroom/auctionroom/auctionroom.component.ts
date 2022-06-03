@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { AuctionService } from 'src/app/services/auction/auction.service';
@@ -5,6 +6,7 @@ import { ProductsService } from 'src/app/services/products/products.service';
 import { UserAuthService } from 'src/app/services/user/user-auth.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-auctionroom',
@@ -19,7 +21,7 @@ export class AuctionroomComponent implements OnInit {
   currentPrice = 0
   auctionRoom : any
   user : any
-  constructor(private aus:UserAuthService,private as:UserService,private aucs:AuctionService,private ps:ProductsService,private route:ActivatedRoute,private router:Router) {
+  constructor(private httpclient:HttpClient,private aus:UserAuthService,private as:UserService,private aucs:AuctionService,private ps:ProductsService,private route:ActivatedRoute,private router:Router) {
     let token : any = this.aus.getToken();
     let user : any=this.aus.getUserFromToken(token);
     this.as.getUserByemail(user.username).subscribe((data) => {
@@ -37,16 +39,32 @@ export class AuctionroomComponent implements OnInit {
     })
     this.aucs.getAuction(params['auction_id']).subscribe((response) => {
       this.auction = response
+      console.log( this.auction)
       this.currentPrice = this.auction.price
-      this.auctionRoom = this.auctionRoom
+      this.auctionRoom =       this.auction.auctionRoom.slice(this.auction.auctionRoom.lastIndexOf('/')+1,this.auction.auctionRoom.length)
+
+      this.httpclient.get(this.back_URL +"/api/auction_rooms/"+this.auctionRoom).subscribe((response) => {
+        console.log(response)
+        this.auctionRoom =response      
+      })
     })
     })
    }
   addPrice(price :any){
-    this.aucs.auctionPrice(this.user.id,this.auctionRoom.id,price).subscribe((response) => {
-      console.log(response)
+    if(price<this.currentPrice){
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Auction price should be bigger than current price! ',
+          showConfirmButton: false,
+          timer: 1500
+        })
+    }else{
+    this.aucs.auctionPrice(this.user.id,this.auctionRoom.id,parseInt(price)).subscribe((response) => {
+      console.log(parseInt(price) )
       this.refreshAuctionData()
     })
+  }
   }
   leaveAuctionRoom(){
     this.aucs.leaveRoom(this.user.id,this.auctionRoom.id).subscribe((response) => {
@@ -58,8 +76,14 @@ export class AuctionroomComponent implements OnInit {
     {
     this.aucs.getAuction(params['auction_id']).subscribe((response) => {
       this.auction = response
-      this.currentPrice = this.auction.price
-      this.auctionRoom = this.auctionRoom
+      this.auctionRoom =       this.auction.auctionRoom.slice(this.auction.auctionRoom.lastIndexOf('/')+1,this.auction.auctionRoom.length)
+
+      this.httpclient.get(this.back_URL +"/api/auction_rooms/"+this.auctionRoom).subscribe((response) => {
+        console.log(response)
+        this.auctionRoom =response
+        this.currentPrice = this.auctionRoom.LastPrice
+
+      })
     })
     })
   }

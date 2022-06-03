@@ -16,6 +16,7 @@ import Swal from 'sweetalert2';
 })
 export class AuctionComponent implements OnInit {
   back_URL = environment.URL_Api
+  auctionsArray1 : any = null
   auctionsArray : any = null
   searchText : string = ""
   totalRecords : any
@@ -70,7 +71,8 @@ export class AuctionComponent implements OnInit {
   refreshData(){
     this.aucs.getallAuctions().subscribe(response => {
       this.auctionsArray = response
-      console.log(response)
+      this.auctionsArray1 =   this.auctionsArray
+
       this.auctionsArray.forEach((auction : any) => {
         this.prs.getProductByAuctionId(auction.id).subscribe((response)=>{
           auction.product = response;
@@ -82,14 +84,16 @@ export class AuctionComponent implements OnInit {
   }
   changefilter(type : any){
     if(type == "prochain"){
-      this.refreshData()
-      this.auctionsArray.filter((auction : any) => auction.etat == "prochain")
+      this.auctionsArray1 =   this.auctionsArray
+
+    this.auctionsArray1= this.auctionsArray.filter((auction : any) => {auction.etat == "prochain"})
+
     }else if(type == "encours"){
-      this.refreshData()
-      this.auctionsArray.filter((auction : any) => auction.etat == "encours")
+      this.auctionsArray1 =   this.auctionsArray
+      this.auctionsArray1=this.auctionsArray.filter((auction : any) => auction.etat == "encours")
     }else if (type == "terminer"){
-      this.refreshData()
-      this.auctionsArray.filter((auction : any) => auction.etat == "terminer")
+      this.auctionsArray1 =   this.auctionsArray
+      this.auctionsArray1= this.auctionsArray.filter((auction : any) => auction.etat == "terminer")
     }
   }
 }

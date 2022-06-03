@@ -156,7 +156,7 @@
                             <div class="form-group">
                                 <label for="productdesignation">Product image</label><br>
                                 <img src={{img}} class="img-sm border rounded">
-                                <input type="file" class="form-control" name="productbimage" id="image" (change)="onFileSelect($event)" formControlName="image" required>
+                                <input type="file" class="form-control" name="productbimage" id="image" (change)="upload($event,uproductForm.value.id)" formControlName="image" required>
                                 <div class="error-msg" *ngIf="image.touched && image.hasError('required')">
                                     Product image is <b>required</b> !
                                 </div>

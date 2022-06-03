@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -17,7 +18,13 @@ export class ProfileComponent implements OnInit {
   back_URL = environment.URL_Api
   selectedFile : any
   useremail:any
-  constructor(fb:FormBuilder, private us:UserService, private aus:UserAuthService, public route:Router) {
+  user:any
+  constructor(private httpclient:HttpClient,fb:FormBuilder, private us:UserService, private aus:UserAuthService, public route:Router) {
+   this.user= this.aus.getUserFromToken(this.aus.getToken());
+   this.us.getUserByemail(this.user.username).subscribe((data) => {
+    this.user = data;
+    this.user=this.user[0];
+   })
     this.editForm = fb.group({
       FirstName: ['', Validators.required],
       LastName: ['', Validators.required],
@@ -31,21 +38,9 @@ export class ProfileComponent implements OnInit {
   }
 
   edit(){
-    let id:any;
-    let user = this.aus.getUserFromToken(this.aus.getToken());
-    this.us.getUserByemail(user.username).subscribe((data) => {
-      user = data;
-    id=user[0].id;
-    let fd = new FormData()
-    fd.append("FirstName",this.FirstName)
-    fd.append("LastName",this.LastName)
-    fd.append("email",this.email)
-    fd.append("mobile",this.mobile)
-    fd.append("country",this.country)
-    fd.append("region",this.region)
-    fd.append("birthDate",this.birthDate)
-    fd.append("image",this.selectedFile)
-    this.us.updateUser(fd,id).subscribe((data) => {
+
+
+    this.us.updateUser(this.user.id,this.editForm.value).subscribe((data) => {
       Swal.fire({
         icon: 'success',
         title: 'User has been updated',
@@ -53,13 +48,41 @@ export class ProfileComponent implements OnInit {
         timer: 1500
       })
          })
-        });
+
         this.refreshUserData();
   }
-  onFileSelected(event : any) {
-    this.selectedFile = <File>event.target.files[0];
-    console.log(this.selectedFile)
-  }
+
+
+
+
+
+  upload(event:any) {
+
+    const elem = event.target;
+    if (elem.files.length > 0)
+    {
+      console.log(event.target.value);
+
+      const formData = new FormData();
+      formData.append('file',  elem.files[0]      );
+      this.httpclient.post('https://127.0.0.1:8000/usern/uploadImageu/'+this.user.id, formData).subscribe(
+        (data:any) => {
+this.refreshUserData();
+        }
+      );
+
+      }
+    }
+
+
+
+
+
+
+
+
+
+
   refreshUserData(){
     let user = this.aus.getUserFromToken(this.aus.getToken());
     this.us.getUserByemail(user.username).subscribe((data) => {

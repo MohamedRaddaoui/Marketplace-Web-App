@@ -73,12 +73,19 @@ user:any
           fd.append("description",this.description)
           fd.append("quantity",this.quantity)
           fd.append("image",this.imgfile)
-          /*console.log(this.uproductForm.value)
-         this.uproductForm.value['image']="";
+          fd.append("subscriber",this.user.id)
+
+
+          this.uproductForm.value['file']=    this.imgfile1
+
+
+          this.uproductForm.value['subscriber']=this.user.id
+          //this.uproductForm.value['quantity']= parseInt(this.uproductForm.value['quantity'])
           console.log(this.uproductForm.value)
-          this.uproductForm.value['quantity']= parseInt(this.uproductForm.value['quantity'])*/
-          this.ps.updateProduct(fd,this.uproductForm.value['id']).subscribe((response) => {
+
+          this.ps.updateProduct(this.uproductForm.value,this.uproductForm.value['id']).subscribe((response) => {
             //if(this.imgfile) this.upload(this.uproductForm.value['id'])
+            console.log(response)
             Swal.fire({
               icon: 'success',
               title: 'Product has been updated',
@@ -96,7 +103,7 @@ user:any
             designation :  product.designation || "",
             description : product.description  || "",
             quantity : product.quantity  || 0,
-            image: product.image || ""
+            image: ""
           })
         }
   deleteProduct(id:any,index:any){
@@ -109,6 +116,14 @@ user:any
       })
       this.productArray.splice(index, 1)
       this.refreshData()
+    },() => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Product already in auction <br> you can\'t delete it! ',
+        showConfirmButton: false,
+        timer: 1500
+      })
     })
   }
   refreshData(){
@@ -145,17 +160,24 @@ user:any
 
 
 
-  upload(id:any) {
+  upload(event:any,id:any) {
 
+    const elem = event.target;
+    if (elem.files.length > 0)
+    {
+      console.log(event.target.value);
 
       const formData = new FormData();
-      formData.append('file',     this.imgfile       );
-
-      this.httpclient.post('https://127.0.0.1:8000/usern/uploadImage/'+id, formData).subscribe(
+      formData.append('file',  elem.files[0]      );
+      this.httpclient.post('https://127.0.0.1:8000/usern/addimg/', formData).subscribe(
         (data:any) => {
           console.log(data);
+this.imgfile1=data
+this.imgfile1=this.imgfile1.result
         }
       );
+
+      }
 
 
 

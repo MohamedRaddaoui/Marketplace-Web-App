@@ -30,6 +30,6 @@ export class ProductsService {
     return this.httpclient.delete(this.back_URL +`/api/products/${id}`)
   }
   updateProduct(newProduct:any, id:any){
-    return this.httpclient.put(this.back_URL +`/api/products/${id}`,newProduct)
+    return this.httpclient.post(this.back_URL +`/usern/uploadImage/${id}`,newProduct)
   }
 }

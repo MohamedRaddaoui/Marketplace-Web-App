@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Auction Room</title>
 </head>
+
 <body>
-    
-<section class="padding-y bg-white shadow-sm">
+
+    <section class="padding-y bg-white shadow-sm">
         <div class="container" *ngIf="auction && product">
             <div class="row">
                 <aside class="col-lg-6">
                     <article class="gallery-wrap gallery-vertical">
-                        <a href="#" class="img-big-wrap img-thumbnail bg-light"> <img height="520" [src]="product.image" /> </a>
+                        <a href="#" class="img-big-wrap img-thumbnail bg-light"> <img height="520" width="520" [src]="product.image" /> </a>
                     </article>
                     <!-- gallery-wrap .end// -->
                 </aside>
                 <div class="col-lg-6">
                     <article class="ps-lg-3">
                         <h2 class="title text-dark">
-                            Product Name: <b>{{product.Name}}</b>
+                            Product Name: <b>{{product.designation}}</b>
                         </h2>
+
                         <br>
                         <br>
                         <h2 class="title text-dark">
@@ -32,10 +35,11 @@
                         </h2>
                         <div class="card-body">
                             <countdown [config]="{ leftTime: 100, format: 'h' }"></countdown>
-                        </div>                        
+                        </div>
                         <div *ngIf="isSub" class="mt-5">
                             <div class="input-group mb-3">
-                                <input type="number" #priceInput class="input-group-text"><button type="button" (click)="addPrice(priceInput.value)" class="btn btn-light border border-dark auction">Add Price</button><button type="button" (click)="leaveAuctionRoom()" class="btn btn-danger">Leave Room</button>
+                                <input type="number" #priceInput class="input-group-text"><button type="submit" (click)="addPrice(priceInput.value)" class="btn btn-light border border-dark auction">Add Price</button><button type="button"
+                                    (click)="leaveAuctionRoom()" class="btn btn-danger">Leave Room</button>
                             </div>
                         </div>
                     </article>
@@ -45,7 +49,8 @@
             <!-- row.// -->
         </div>
         <!-- container .// -->
-</section>
+    </section>
 
 </body>
+
 </html>

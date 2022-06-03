@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuctionService } from 'src/app/services/auction/auction.service';
+import { CategoryService } from 'src/app/services/category/category.service';
 import { UserAuthService } from 'src/app/services/user/user-auth.service';
 import { UserService } from 'src/app/services/user/user.service';
 import Swal from 'sweetalert2';
@@ -14,27 +15,38 @@ export class MyauctionsComponent implements OnInit {
   auctionArray : any = null
   reverseAuctionArray : any = null;
   productsArray : any = null;
+  categoryArray : any = null;
+  subCategoryArray : any = null;
   auctionForm : any
   re_auctionForm : any
   user : any
-  constructor(private aucs:AuctionService, private us:UserService, private aus:UserAuthService, private fb:FormBuilder) {
+  constructor(private aucs:AuctionService, private us:UserService, private aus:UserAuthService, private fb:FormBuilder,private cs:CategoryService) {
     this.auctionForm = fb.group({
       id:[''],
       Price: ['', Validators.required],
       Name: ['', Validators.required],
       Date: ['', Validators.required],
-      product_id : ['', Validators.required]
+      product_id : ['', Validators.required],
+      category_id : ['', Validators.required],
+      subcategory_id : ['', Validators.required]
     })
     this.re_auctionForm = fb.group({
       id:[''],
       Price: ['', Validators.required],
       Name: ['', Validators.required],
       Date: ['', Validators.required],
-      product_id : ['', Validators.required]
+      product_id : ['', Validators.required],
+      category_id : ['', Validators.required],
+      subcategory_id : ['', Validators.required]
+    })
+    this.cs.getallCategories().subscribe(response => {
+      this.categoryArray = response
+    })
+    this.cs.getallSubCategories().subscribe(response => {
+      this.subCategoryArray = response
     })
     this.refreshData()
   }
-
     add(){
       this.auctionForm.value.usern ="api/userns/"+ this.user.id
       delete this.auctionForm.value.id
@@ -88,7 +100,10 @@ export class MyauctionsComponent implements OnInit {
         id:auction.id || "",
         Name:auction.Name || "",
         Price:  auction.Price || "",
-        Date: auction.Date  || ""
+        Date: auction.Date  || "",
+        product_id: auction.products.id || "",
+        category_id: auction.category.id || "",
+        subcategory_id: auction.subcategory.id || ""
       });
     }
     getRe_AuctionData(auction : any){
@@ -96,7 +111,10 @@ export class MyauctionsComponent implements OnInit {
         id:auction.id || "",
         Name:auction.Name || "",
         Price:  auction.Price || "",
-        Date: auction.Date  || ""
+        Date: auction.Date  || "",
+        product_id: auction.products.id || "",
+        category_id: auction.category.id || "",
+        subcategory_id: auction.subcategory.id || ""
       });
     }
     deleteAuction(id:any, index:any){
@@ -131,10 +149,10 @@ export class MyauctionsComponent implements OnInit {
           timer: 1500
         })
         this.refreshData()
-      })    
+      })
     }
     refreshData(){
-      
+
     this.user = this.aus.getUserFromToken(this.aus.getToken());
     this.us.getUserByemail(this.user.username).subscribe(data =>{
 
@@ -144,13 +162,13 @@ export class MyauctionsComponent implements OnInit {
       this.reverseAuctionArray=this.user.ReverseAuction
       this.productsArray=this.user.products
       this.auctionArray.forEach((auction : any) => {
-        auction.Date = new Date(auction.Date.timestamp* 1000).toISOString().slice(0, 10);
+        auction.date = new Date(auction.date.timestamp* 1000).toISOString().slice(0, 10);
       })
       this.reverseAuctionArray.forEach((rauction : any) => {
         rauction.Date = new Date(rauction.Date.timestamp* 1000).toISOString().slice(0, 10);
       })
       this.productsArray=this.user.products
-    } )
+    })
     }
     get Price(){
       return this.auctionForm.get('Price');
@@ -176,6 +194,18 @@ export class MyauctionsComponent implements OnInit {
     set product_id(value) {
       this.product_id = value;
     }
+    get category_id(){
+      return this.auctionForm.get('category_id');
+    }
+    set category_id(value) {
+      this.product_id = value;
+    }
+    get subcategory_id(){
+      return this.auctionForm.get('subcategory_id');
+    }
+    set subcategory_id(value) {
+      this.subcategory_id = value;
+    }
 
     get re_Date(){
       return this.re_auctionForm.get('Date');
@@ -200,6 +230,18 @@ export class MyauctionsComponent implements OnInit {
     }
     set re_product_id(value) {
       this.re_product_id = value;
+    }
+    get re_category_id(){
+      return this.re_auctionForm.get('category_id');
+    }
+    set re_category_id(value) {
+      this.re_category_id = value;
+    }
+    get re_subcategory_id(){
+      return this.re_auctionForm.get('subcategory_id');
+    }
+    set re_subcategory_id(value) {
+      this.re_subcategory_id = value;
     }
     ngOnInit(): void {
 
